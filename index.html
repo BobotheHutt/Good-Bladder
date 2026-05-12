@@ -6,10 +6,8 @@
     <style>
         :root { --safe: #2ecc71; --caution: #f1c40f; --avoid: #e74c3c; --bg: #f4f4f9; --text: #333; --card: #ffffff; --header: #f4f4f9; }
         body.dark { --bg: #1a1a1a; --text: #f4f4f9; --card: #2c2c2c; --header: #1a1a1a; }
-
         body { font-family: -apple-system, sans-serif; padding: 15px; max-width: 800px; margin: auto; background: var(--bg); color: var(--text); transition: 0.2s; }
         
-        /* Dark Mode Toggle */
         .mode-toggle { position: absolute; top: 15px; right: 15px; z-index: 200; }
         #dark-btn { padding: 6px 12px; border-radius: 20px; border: 1px solid #ccc; background: var(--card); color: var(--text); font-size: 10px; font-weight: bold; cursor: pointer; }
 
@@ -38,22 +36,21 @@
     </style>
 </head>
 <body>
-<div class="controls">
-    <div style="display: flex; gap: 10px; align-items: center; margin-bottom: 10px;">
-        <input type="text" id="search" placeholder="Search categories..." style="margin-bottom: 0;">
-        <button id="dark-btn" onclick="toggleMode()" style="padding: 10px; border-radius: 10px; border: 1px solid #ccc; background: var(--card); color: var(--text); font-size: 10px; font-weight: bold; cursor: pointer; white-space: nowrap;">DARK MODE</button>
+    <div class="mode-toggle">
+        <button id="dark-btn" onclick="toggleMode()">DARK MODE</button>
     </div>
-    
-    <span class="filter-label">Safety Status</span>
-    <div class="filter-group" id="safety-filters">
-        <button class="btn" data-s="Friendly">SAFE</button>
-        <button class="btn" data-s="Caution">CAUTION</button>
-        <button class="btn" data-s="Avoid">AVOID</button>
-    </div>
-    <span class="filter-label">Filter by Type</span>
-    <div class="filter-group" id="type-filters"></div>
-</div>
 
+    <div class="controls">
+        <input type="text" id="search" placeholder="Search categories...">
+        <span class="filter-label">Safety Status</span>
+        <div class="filter-group" id="safety-filters">
+            <button class="btn" data-s="Friendly">SAFE</button>
+            <button class="btn" data-s="Caution">CAUTION</button>
+            <button class="btn" data-s="Avoid">AVOID</button>
+        </div>
+        <span class="filter-label">Food Type (Select One)</span>
+        <div class="filter-group" id="type-filters"></div>
+    </div>
     <div id="list"></div>
 
     <script src="data_breakfast.js"></script>
@@ -70,21 +67,18 @@
     <script src="data_vending.js"></script>
 
     <script>
-        // Toggle Logic
         function toggleMode() {
             const isDark = document.body.classList.toggle('dark');
             localStorage.setItem('bMode', isDark ? 'dark' : 'light');
             document.getElementById('dark-btn').innerText = isDark ? 'LIGHT MODE' : 'DARK MODE';
         }
 
-        // Init Mode
         const savedMode = localStorage.getItem('bMode');
         if(savedMode === 'dark') {
             document.body.classList.add('dark');
             document.getElementById('dark-btn').innerText = 'LIGHT MODE';
         }
 
-        // Data Loader
         const dataFiles = [
             typeof data_breakfast !== 'undefined' ? data_breakfast : [],
             typeof data_drinks !== 'undefined' ? data_drinks : [],
@@ -104,14 +98,16 @@
         const listDiv = document.getElementById('list');
         const searchInput = document.getElementById('search');
 
-        let activeSafety = new Set(JSON.parse(localStorage.getItem('bSafety')) || []);
-        let activeTypes = new Set(JSON.parse(localStorage.getItem('bTypes')) || []);
+        // Defaults: Safe on, Breakfast on (if no memory)
+        let activeSafety = new Set(JSON.parse(localStorage.getItem('bSafety')) || ['Friendly']);
+        let activeType = localStorage.getItem('bType') || 'Breakfast';
 
         function save() {
             localStorage.setItem('bSafety', JSON.stringify([...activeSafety]));
-            localStorage.setItem('bTypes', JSON.stringify([...activeTypes]));
+            localStorage.setItem('bType', activeType);
         }
 
+        // Safety Multi-Toggle
         document.querySelectorAll('.btn[data-s]').forEach(btn => {
             if(activeSafety.has(btn.dataset.s)) btn.classList.add('active');
             btn.onclick = () => {
@@ -122,15 +118,17 @@
             };
         });
 
+        // Type Single-Toggle
         const types = [...new Set(allFoods.map(f => f.c || "General"))].sort();
         types.forEach(type => {
             const btn = document.createElement('button');
             btn.className = 'btn btn-type';
-            if(activeTypes.has(type)) btn.classList.add('active');
+            if(activeType === type) btn.classList.add('active');
             btn.textContent = type.toUpperCase();
             btn.onclick = () => {
-                btn.classList.toggle('active');
-                activeTypes.has(type) ? activeTypes.delete(type) : activeTypes.add(type);
+                document.querySelectorAll('.btn-type').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                activeType = type;
                 save(); render();
             };
             document.getElementById('type-filters').appendChild(btn);
@@ -142,7 +140,7 @@
             const filtered = allFoods.filter(f => {
                 const mSearch = f.n.toLowerCase().includes(search) || f.d.toLowerCase().includes(search);
                 const mSafety = activeSafety.has(f.s);
-                const mType = activeTypes.has(f.c || "General");
+                const mType = (f.c || "General") === activeType;
                 return mSearch && mSafety && mType;
             });
             filtered.forEach(f => {
