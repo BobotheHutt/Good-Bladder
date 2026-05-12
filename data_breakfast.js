@@ -67,6 +67,4 @@ const data_breakfast = [
     {n:"Bob’s Red Mill Oats", s:"Friendly", c:"Breakfast", d:"Clean and high quality. Good baseline food."},
     {n:"Annie's White Cheddar Mac", s:"Friendly", c:"Breakfast", d:"Great 'breakfast for lunch' safe option."},
     {n:"Desert Harvest Aloe Vera", s:"Friendly", c:"Breakfast", d:"Take with breakfast to coat the bladder lining."},
-    {n:"Prelief", s:"Friendly", c:"Breakfast", d:"Neutralize acid by taking 2 with your first bite."},
-    {n:"Baking Soda Pinch", s:"Friendly", c:"Breakfast", d:"Add to morning water to stop the sting."}
 ];
