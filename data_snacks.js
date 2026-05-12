@@ -1,41 +1,39 @@
 const data_snacks = [
-    // SAVORY / SALTY (SAFE)
-    {n:"Popcorn (Plain/Butter)", s:"Friendly", c:"Snacks", d:"Best savory snack. Pop your own to avoid the 'hidden' chemicals in microwave bags."},
-    {n:"Pretzels (Plain)", s:"Friendly", c:"Snacks", d:"Safe and non-acidic. Avoid 'Honey Mustard' or 'Buffalo' flavors."},
-    {n:"Potato Chips (Classic/Plain)", s:"Friendly", c:"Snacks", d:"Safe. Check for MSG or 'Citric Acid' in the ingredients."},
-    {n:"Corn Chips / Tortilla Chips", s:"Friendly", c:"Snacks", d:"Safe if plain. Avoid 'Nacho Cheese' or 'Cool Ranch' powders."},
-    {n:"Almonds (Roasted/Unsalted)", s:"Friendly", c:"Snacks", d:"The 'Gold Standard' safe nut for bladder health."},
-    {n:"Cashews / Peanuts", s:"Friendly", c:"Snacks", d:"Generally very safe. Avoid 'Dry Roasted' if they have soy or yeast."},
-    {n:"Pumpkin Seeds", s:"Friendly", c:"Snacks", d:"Safe and actually beneficial for bladder/prostate health."},
-    {n:"Cheese Sticks (Mozzarella/Mild Cheddar)", s:"Friendly", c:"Snacks", d:"Non-aged cheeses are very safe and high protein."},
-    {n:"Plain Crackers (Saltines/Soda Crackers)", s:"Friendly", c:"Snacks", d:"Excellent bland snack to buffer the stomach/bladder."},
+    // SAVORY / SALTY
+    {n:"Pretzels (Plain/Salted)", s:"Friendly", c:"Snacks", d:"The safest salty snack. Avoid 'Honey Mustard' or 'Buffalo' flavors."},
+    {n:"Popcorn (Plain/Butter)", s:"Friendly", c:"Snacks", d:"Safe if freshly popped. Avoid 'spicy' or 'white cheddar' powders."},
+    {n:"Potato Chips (Classic/Plain)", s:"Friendly", c:"Snacks", d:"Safe as long as ingredients are just potatoes, oil, and salt."},
+    {n:"Corn Chips (Original)", s:"Friendly", c:"Snacks", d:"Safe (like Original Fritos). No MSG or Citric Acid."},
+    {n:"Almonds (Roasted/Slivered)", s:"Friendly", c:"Snacks", d:"The 'Gold Standard' safe nut for bladder health."},
+    {n:"Cashews / Peanuts", s:"Friendly", c:"Snacks", d:"Safe if plain salted. Avoid 'Dry Roasted' (often has soy/yeast)."},
+    {n:"Pumpkin Seeds (Pepitas)", s:"Friendly", c:"Snacks", d:"Very safe and good for prostate/bladder health."},
+    {n:"Cheese Sticks (Mozzarella)", s:"Friendly", c:"Snacks", d:"Mild, non-aged cheese is very safe and high protein."},
+    {n:"Rice Cakes (Plain/Salted)", s:"Friendly", c:"Snacks", d:"Safe and bland. Great for buffering a sensitive stomach."},
 
-    // SWEET TREATS (SAFE)
-    {n:"White Chocolate", s:"Friendly", c:"Snacks", d:"The 'Safe' chocolate. No caffeine or cocoa solids that sting."},
-    {n:"Marshmallows", s:"Friendly", c:"Snacks", d:"Safe sweet treat. Check for 'Citric Acid' on the label."},
-    {n:"Caramels / Butterscotch", s:"Friendly", c:"Snacks", d:"Safe alternatives to acidic candies."},
-    {n:"Honey / Maple Candy", s:"Friendly", c:"Snacks", d:"Natural sugars are much safer than artificial sweeteners."},
-    {n:"Vanilla Wafers", s:"Friendly", c:"Snacks", d:"Safe and low-acid. Better than chocolate chip cookies."},
-    {n:"Graham Crackers (Honey/Plain)", s:"Friendly", c:"Snacks", d:"Classic safe snack. Avoid 'Chocolate' ones."},
-    {n:"Sugar Cookies / Shortbread", s:"Friendly", c:"Snacks", d:"Low-acid and safe. Avoid lemon-flavored versions."},
+    // SWEET TREATS
+    {n:"White Chocolate", s:"Friendly", c:"Snacks", d:"The safe chocolate. No caffeine or cocoa solids that sting."},
+    {n:"Marshmallows", s:"Friendly", c:"Snacks", d:"Safe sweet treat. Check label for 'Citric Acid' or Red 40."},
+    {n:"Honey / Maple Candy", s:"Friendly", c:"Snacks", d:"Safe natural sugars. Better than artificial sweeteners."},
+    {n:"Vanilla Wafers", s:"Friendly", c:"Snacks", d:"Low-acid and safe. Avoid chocolate chip versions."},
+    {n:"Graham Crackers", s:"Friendly", c:"Snacks", d:"Classic safe snack. Avoid chocolate-coated ones."},
+    {n:"Sugar Cookies / Shortbread", s:"Friendly", c:"Snacks", d:"Safe and low-acid. Avoid lemon or cinnamon flavors."},
     {n:"Angel Food Cake", s:"Friendly", c:"Snacks", d:"Bland and safe. Top with pears or blueberries."},
-    {n:"Carob Bars", s:"Friendly", c:"Snacks", d:"The 'Chocolate Substitute'. No caffeine and safe for the bladder."},
-    {n:"Mints (Peppermint/Spearmint)", s:"Friendly", c:"Snacks", d:"Safe breath fresheners. Avoid 'Wintergreen' as it can be a trigger."},
+    {n:"Carob Bars", s:"Friendly", c:"Snacks", d:"A safe chocolate substitute; no caffeine or theobromine."},
+    {n:"Butterscotch / Caramels", s:"Friendly", c:"Snacks", d:"Safe sweet alternatives to acidic candies."},
 
-    // FRUIT-BASED SNACKS (CAUTION)
-    {n:"Blueberries (Fresh)", s:"Caution", c:"Snacks", d:"Safest berry, but still has natural acid. Test small amounts."},
-    {n:"Apples (Gala/Fuji/Pink Lady)", s:"Caution", c:"Snacks", d:"Sweeter, low-acid varieties only. Avoid tart Green apples."},
-    {n:"Pears (Peeled)", s:"Friendly", c:"Snacks", d:"The most soothing snack fruit. Perfect during a flare."},
+    // FRUIT-BASED
+    {n:"Pears (Peeled)", s:"Friendly", c:"Snacks", d:"The most soothing snack fruit during a flare."},
+    {n:"Apples (Gala/Fuji)", s:"Caution", c:"Snacks", d:"Low-acid varieties only. Avoid tart Green apples."},
+    {n:"Blueberries (Fresh)", s:"Caution", c:"Snacks", d:"Safest berry, but can sting if the lining is very raw."},
 
     // THE RED LIST (AVOID)
-    {n:"Chocolate (Milk/Dark/Semi-Sweet)", s:"Avoid", c:"Snacks", d:"Caffeine and theobromine irritate bladder nerves."},
-    {n:"Craisins (Dried Cranberries)", s:"Avoid", c:"Snacks", d:"Pure acid. Major trigger for mid-stream burning."},
-    {n:"Fruit Snacks (Mott's/Welch's)", s:"Avoid", c:"Snacks", d:"Citric acid and artificial dyes (Red 40) are huge triggers."},
-    {n:"Sour Candy (Skittles/Warheads)", s:"Avoid", c:"Snacks", d:"Pure citric/malic acid. High risk for 'lemon on a cut' feeling."},
-    {n:"Twizzlers / Red Dye 40", s:"Avoid", c:"Snacks", d:"Artificial dyes and preservatives are known irritants."},
-    {n:"Sugar-Free Candy / Gum", s:"Avoid", c:"Snacks", d:"Artificial sweeteners (Aspartame/Saccharin) are neurotoxins for the bladder."},
-    {n:"Beef Jerky", s:"Avoid", c:"Snacks", d:"Soy sauce, vinegar, and liquid smoke are absolute triggers."},
-    {n:"Pickles / Olives", s:"Avoid", c:"Snacks", d:"High acid and fermentation will cause spasms."},
-    {n:"Spicy Chips (Flamin' Hot/Jalapeño)", s:"Avoid", c:"Snacks", d:"Capsaicin burns the bladder neck during urination."},
-    {n:"Everything Bagel Chips", s:"Avoid", c:"Snacks", d:"Raw onion and garlic are major prostate and bladder irritants."}
+    {n:"Chocolate (Milk/Dark)", s:"Avoid", c:"Snacks", d:"Caffeine and theobromine are major nerve irritants."},
+    {n:"Craisins (Dried Cranberries)", s:"Avoid", c:"Snacks", d:"Pure acid. Huge trigger for mid-stream burning."},
+    {n:"Fruit Snacks / Mott's / Welch's", s:"Avoid", c:"Snacks", d:"Citric acid and artificial dyes are massive flare triggers."},
+    {n:"Twizzlers / Red Licorice", s:"Avoid", c:"Snacks", d:"Red Dye 40 and preservatives are known irritants."},
+    {n:"Skittles / Starburst", s:"Avoid", c:"Snacks", d:"Pure citric and malic acid. 'Lemon on a cut' feeling guaranteed."},
+    {n:"Sugar-Free Candy / Gum", s:"Avoid", c:"Snacks", d:"Artificial sweeteners (Aspartame/Saccharin) are bladder neurotoxins."},
+    {n:"Beef Jerky / Slim Jims", s:"Avoid", c:"Snacks", d:"Soy sauce, vinegar, and liquid smoke are absolute triggers."},
+    {n:"Pickles / Olives", s:"Avoid", c:"Snacks", d:"High acid and fermentation will trigger spasms."},
+    {n:"Spicy Chips (Flamin' Hot)", s:"Avoid", c:"Snacks", d:"Capsaicin will burn the bladder neck during urination."}
 ];
