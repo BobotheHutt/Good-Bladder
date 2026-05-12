@@ -1,5 +1,5 @@
 const data_spices = [
-    // --- OILS & FATS (THE PANTRY BASE) ---
+    // --- OILS & FATS ---
     {n:"Olive Oil (Extra Virgin)", s:"Friendly", c:"Seasonings", d:"The safest cooking/dressing oil. Very anti-inflammatory."},
     {n:"Butter (Unsalted)", s:"Friendly", c:"Seasonings", d:"Safe baseline fat. Avoid margarines with many additives."},
     {n:"Coconut Oil (Refined/Unrefined)", s:"Friendly", c:"Seasonings", d:"Safe for high-heat cooking and baking."},
@@ -28,7 +28,7 @@ const data_spices = [
     {n:"Rosemary", s:"Friendly", c:"Seasonings", d:"Very safe and aromatic. Great with potatoes and pork."},
     {n:"Sage", s:"Friendly", c:"Seasonings", d:"Safe and savory. Excellent in butter sauces for pasta."},
     {n:"Dill", s:"Friendly", c:"Seasonings", d:"The 'Gold Standard' for fish and potatoes. Very soothing."},
-    {n:"Chives (Fresh)", s:"Friendly", c:"Seasonings", d:"Safe. The best way to get 'onion' flavor without the prostate irritation."},
+    {n:"Chives (Fresh)", s:"Friendly", c:"Seasonings", d:"Safe. The best way to get 'onion' flavor without irritation."},
     {n:"Bay Leaves", s:"Friendly", c:"Seasonings", d:"Safe for flavoring soups. Remove before eating."},
     {n:"Cilantro / Coriander", s:"Friendly", c:"Seasonings", d:"Generally very safe; adds fresh flavor without acid."},
     {n:"Tarragon", s:"Friendly", c:"Seasonings", d:"Safe and mild. Good for chicken or egg dishes."},
@@ -40,7 +40,6 @@ const data_spices = [
     {n:"Salt / Sea Salt", s:"Friendly", c:"Seasonings", d:"The only seasoning that doesn't change urine pH. Very safe."},
     {n:"Himalayan Pink Salt", s:"Friendly", c:"Seasonings", d:"Safe; contains trace minerals to help buffer acidity."},
     {n:"Garlic Powder", s:"Friendly", c:"Seasonings", d:"Safer than raw garlic. Adds flavor without the 'bite'."},
-    {n:"Onion Powder", s:"Avoid", c:"Seasonings", d:"Concentrated onion. Irritates prostate and bladder neck."},
     {n:"Ginger (Ground)", s:"Caution", c:"Seasonings", d:"Anti-inflammatory but 'sharp'. Test for stinging."},
     {n:"Black Pepper", s:"Caution", c:"Seasonings", d:"Known irritant; use sparingly during recovery."},
     {n:"Cinnamon / Nutmeg", s:"Caution", c:"Seasonings", d:"Fine in small amounts; can be a trigger if used heavily."},
@@ -49,27 +48,37 @@ const data_spices = [
     {n:"Cardamom", s:"Caution", c:"Seasonings", d:"Generally safe, but has a strong 'perfume' profile for some."},
     {n:"Celery Seed", s:"Friendly", c:"Seasonings", d:"Safe and often used to reduce uric acid levels."},
 
-    // --- PANTRY FLAVORINGS ---
+    // --- PANTRY FLAVORINGS & ADDITIVES ---
     {n:"Vanilla Extract (Imitation)", s:"Caution", c:"Seasonings", d:"Better than pure extract as it often has less alcohol irritant."},
     {n:"Almond Extract", s:"Caution", c:"Seasonings", d:"Alcohol-based; can irritate the urethra if used heavily."},
-    {n:"Baking Powder", s:"Caution", c:"Seasonings", d:"Contains cream of tartar (acid). Use in small amounts for baking."},
+    {n:"Baking Powder", s:"Caution", c:"Seasonings", d:"Contains cream of tartar (acid). Use in small amounts."},
     {n:"Baking Soda", s:"Friendly", c:"Seasonings", d:"Strong alkalizer. Used to neutralize urine acid sting."},
-    {n:"Cornstarch", s:"Friendly", c:"Seasonings", d:"Safe thickener for gravies and sauces."},
-    {n:"Arrowroot Powder", s:"Friendly", c:"Seasonings", d:"Excellent safe alternative to cornstarch."},
-    {n:"Coconut Aminos", s:"Caution", c:"Seasonings", d:"Safer than soy sauce, but still high in natural salt."},
+    {n:"Cornstarch / Arrowroot", s:"Friendly", c:"Seasonings", d:"Safe thickeners for gravies and sauces."},
     {n:"Carob Powder", s:"Friendly", c:"Seasonings", d:"The safe chocolate substitute. No caffeine."},
+    {n:"Coconut Aminos", s:"Caution", c:"Seasonings", d:"Safer than soy sauce, but still high in natural salt."},
+    {n:"Natural Flavors", s:"Caution", c:"Seasonings", d:"Catch-all term. Can include citrus or MSG-like chemicals."},
+    {n:"Vegetable Broth", s:"Caution", c:"Seasonings", d:"Found in canned tuna/soups. Often has hidden onion/soy."},
 
-    // --- THE RED LIST (AVOID) ---
-    {n:"Vinegar (White/Cider/Balsamic)", s:"Avoid", c:"Seasonings", d:"Pure acid. Primary trigger for mid-stream burning."},
+    // --- CHEMICAL IRRITANTS (THE RED LIST) ---
+    {n:"Citric Acid", s:"Avoid", c:"Seasonings", d:"The #1 trigger. Found in most processed foods. Acts like acid on a wound."},
+    {n:"Ascorbic Acid (Vitamin C)", s:"Avoid", c:"Seasonings", d:"Pure acid in the bladder. Found in supplements and 'fortified' items."},
+    {n:"Phosphoric Acid", s:"Avoid", c:"Seasonings", d:"Found in dark sodas. Extremely corrosive to an inflamed lining."},
+    {n:"Benzoic Acid / Sodium Benzoate", s:"Avoid", c:"Seasonings", d:"Common preservative. Known to trigger bladder spasms."},
+    {n:"Malic Acid", s:"Avoid", c:"Seasonings", d:"Used to make things 'tart'. Huge trigger for mid-stream burning."},
+    {n:"Red Dye 40", s:"Avoid", c:"Seasonings", d:"Chemical coloring that causes significant irritation in the bladder."},
+    {n:"Yellow 5 & 6", s:"Avoid", c:"Seasonings", d:"Found in processed cheeses/snacks. Known to flare veiny bladders."},
+    {n:"Aspartame / NutraSweet", s:"Avoid", c:"Seasonings", d:"Artificial sweetener. Breaks down into irritants for bladder nerves."},
+    {n:"Saccharin / Sweet'N Low", s:"Avoid", c:"Seasonings", d:"High-level bladder irritant. One of the oldest known triggers."},
+    {n:"Nitrates / Nitrites", s:"Avoid", c:"Seasonings", d:"Found in lunch meats/bacon. Linked to vascular irritation."},
+    {n:"Sulfites", s:"Avoid", c:"Seasonings", d:"Common in wine and dried fruits. Triggers inflammation."},
+    {n:"BHA / BHT", s:"Avoid", c:"Seasonings", d:"Preservatives in cereals/snacks that can cause nerve flares."},
+    {n:"MSG / Yeast Extract", s:"Avoid", c:"Seasonings", d:"Triggers nerve sensitivity and 'itchy' bladder feelings."},
+    {n:"Vinegar (All Types)", s:"Avoid", c:"Seasonings", d:"Pure acid. Primary trigger for mid-stream burning."},
     {n:"Soy Sauce / Tamari", s:"Avoid", c:"Seasonings", d:"Soy and high salt trigger nerve spasms. High flare risk."},
-    {n:"MSG (Monosodium Glutamate)", s:"Avoid", c:"Seasonings", d:"Triggers nerve sensitivity and 'itchy' bladder feelings."},
     {n:"Ketchup / Mustard", s:"Avoid", c:"Seasonings", d:"Tomato/Vinegar-based. Major bladder irritants."},
     {n:"Hot Sauce / Chili Powder", s:"Avoid", c:"Seasonings", d:"Capsaicin burns the bladder neck during flow."},
     {n:"Red Pepper Flakes / Cayenne", s:"Avoid", c:"Seasonings", d:"Triggers intense sharp pain during urination."},
-    {n:"Worcestershire Sauce", s:"Avoid", c:"Seasonings", d:"Vinegar and spice combo. High flare risk."},
-    {n:"Artificial Sweeteners (Aspartame)", s:"Avoid", c:"Seasonings", d:"Chemical neurotoxins for the bladder lining."},
+    {n:"Onion Powder", s:"Avoid", c:"Seasonings", d:"Concentrated onion. Irritates prostate and bladder neck."},
     {n:"Liquid Smoke", s:"Avoid", c:"Seasonings", d:"Chemical irritant. Triggers bladder spasms for many."},
-    {n:"Tartar Sauce / Relish", s:"Avoid", c:"Seasonings", d:"Vinegar and preservatives are major triggers."},
-    {n:"Bouillon Cubes (Standard)", s:"Avoid", c:"Seasonings", d:"High MSG, sodium, and onion/garlic powder triggers."},
-    {n:"Meat Tenderizers", s:"Avoid", c:"Seasonings", d:"Often contain enzymes and MSG that irritate the bladder."}
+    {n:"Potassium Chloride", s:"Caution", c:"Seasonings", d:"Salt substitute. High potassium in urine can sting a raw lining."}
 ];
