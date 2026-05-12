@@ -1,32 +1,40 @@
 const data_brands = [
-    // MEATS & PROTEIN
-    {n:"Applegate Naturals (Turkey/Bacon)", s:"Friendly", c:"Brands", d:"The safest brand for deli meat and bacon. No nitrates or chemical fillers."},
-    {n:"Boar’s Head (Simplicity Line)", s:"Friendly", c:"Brands", d:"Look for the 'Simplicity' label; these have no nitrates, nitrites, or carrageenan."},
-    {n:"Tyson (Natural/Fresh Chicken)", s:"Friendly", c:"Brands", d:"Safe as long as it's the fresh, un-marinated version. Avoid 'frozen breaded' bags."},
-    {n:"Jennie-O (Plain Ground Turkey)", s:"Friendly", c:"Brands", d:"Reliable safe protein. Avoid the 'Taco Seasoned' tubes."},
-    {n:"StarKist (Selects in Water)", s:"Caution", c:"Brands", d:"Check the back for 'Vegetable Broth'—if it contains soy or onion, skip it."},
+    // STORE-SPECIFIC BRANDS (RICHLAND/KENNEWICK)
+    {n:"Simple Truth Organic (Fred Meyer)", s:"Friendly", c:"Shopping", d:"Safe 'Clean' brand. Look for nitrate-free chicken and turkey."},
+    {n:"Boar’s Head Simplicity Line (Yoke's)", s:"Friendly", c:"Shopping", d:"No nitrates or carrageenan. The safest deli meat in Richland."},
+    {n:"Open Nature Protein (Safeway)", s:"Friendly", c:"Shopping", d:"Safeway's clean brand. No antibiotics or nitrates."},
+    {n:"Lucerne Dairy (Safeway)", s:"Friendly", c:"Shopping", d:"Safe cottage cheese and milk. Avoid 'Fruit on the Bottom' yogurts."},
+    {n:"Private Selection Meats (Kroger)", s:"Friendly", c:"Shopping", d:"High quality fresh beef. Avoid pre-seasoned items."},
+    {n:"WinCo Bulk Bins (Grains/Pretzels)", s:"Friendly", c:"Shopping", d:"Cheapest way to buy safe rice, oats, and plain pretzels."},
+    {n:"O Organics Teas (Albertsons)", s:"Friendly", c:"Shopping", d:"Look for Chamomile and Peppermint. Cheap and effective."},
 
-    // BREAKFAST & PANTRY
-    {n:"Annie’s White Cheddar Mac", s:"Friendly", c:"Brands", d:"The 'Safe' mac. Non-acidic cheese and no artificial dyes like Kraft's yellow."},
-    {n:"Bob’s Red Mill (Oats/Grains)", s:"Friendly", c:"Brands", d:"High quality and clean. Their steel-cut oats are a perfect bladder baseline."},
-    {n:"Quaker Oats (Plain)", s:"Friendly", c:"Brands", d:"Safe and easy. Avoid the 'Instant Flavored' packets (high sugar/acid)."},
-    {n:"Dandy Blend (Coffee Substitute)", s:"Friendly", c:"Brands", d:"Dandelion/Chicory root. Tastes remarkably like coffee but has zero acid."},
-    {n:"Tyler’s Acid-Free Coffee", s:"Caution", c:"Brands", d:"The only 'real' coffee that won't sting immediately. Still has caffeine, so use a pinch of baking soda."},
-    {n:"Desert Harvest (Aloe Vera)", s:"Friendly", c:"Brands", d:"The gold standard for bladder lining repair. Highly recommended during Botox recovery."},
-    {n:"Prelief (Acid Neutralizer)", s:"Friendly", c:"Brands", d:"Essential for eating out. Neutralizes acid in food before it hits the bladder."},
+    // PRODUCT BRANDS (MEATS)
+    {n:"Applegate Naturals", s:"Friendly", c:"Shopping", d:"Gold standard for nitrate-free bacon and deli turkey."},
+    {n:"Jennie-O Ground Turkey", s:"Friendly", c:"Shopping", d:"Reliable safe protein. Avoid 'Taco Seasoned' tubes."},
+    {n:"Tyson Fresh Poultry", s:"Friendly", c:"Shopping", d:"Safe if fresh/un-marinated. Avoid frozen breaded bags."},
+    {n:"Oscar Mayer", s:"Avoid", c:"Shopping", d:"High nitrates and preservatives. Guaranteed to sting."},
 
-    // SNACKS & WATER
-    {n:"iSpring FA15 (Filter Add-on)", s:"Friendly", c:"Brands", d:"The specific alkaline filter for your RO system to fix your acidic water."},
-    {n:"Evian / Fiji Water", s:"Friendly", c:"Brands", d:"Naturally alkaline bottled water. Great to keep in the car for flares."},
-    {n:"Stacy’s Simply Naked Pita Chips", s:"Friendly", c:"Brands", d:"Low-ingredient and non-irritating snack."},
-    {n:"Late July (Organic Pretzels)", s:"Friendly", c:"Brands", d:"Clean ingredients; no MSG or weird flavorings."},
-    {n:"Kettle Brand (Sea Salt Chips)", s:"Friendly", c:"Brands", d:"Simple ingredients (potatoes, oil, salt). Avoid 'salt and vinegar' or 'BBQ'."},
-    {n:"Fage Total (Plain Yogurt)", s:"Caution", c:"Brands", d:"Safe plain yogurt, but Greek is always slightly more acidic than regular."},
-    
-    // THE RED LIST (BRANDS TO AVOID)
-    {n:"Kraft Mac & Cheese (Blue Box)", s:"Avoid", c:"Brands", d:"Artificial dyes (Yellow 5/6) are known bladder irritants."},
-    {n:"Oscar Mayer (Hot Dogs/Bologna)", s:"Avoid", c:"Brands", d:"High nitrates and preservatives. Guaranteed to sting 'raw' tissue."},
-    {n:"Welch’s / Mott’s (Fruit Snacks)", s:"Avoid", c:"Brands", d:"Citric acid and Red 40. Huge trigger for 200ml emergencies."},
-    {n:"Gatorade / Powerade", s:"Avoid", c:"Brands", d:"Citric acid and dyes. The worst thing for an inflamed bladder neck."},
-    {n:"Coca-Cola / Pepsi", s:"Avoid", c:"Brands", d:"Phosphoric acid and caffeine. Pure bladder irritation."}
+    // PACKAGED GOODS
+    {n:"Annie’s White Cheddar Mac", s:"Friendly", c:"Shopping", d:"Non-acidic cheese and no artificial yellow dyes."},
+    {n:"Bob’s Red Mill Oats", s:"Friendly", c:"Shopping", d:"Highest quality clean grains for your morning baseline."},
+    {n:"Quaker Oats (Plain)", s:"Friendly", c:"Shopping", d:"Safe. Avoid 'Instant Flavored' packets."},
+    {n:"Stacy’s Simply Naked Pita Chips", s:"Friendly", c:"Shopping", d:"Low-ingredient, non-irritating snack."},
+    {n:"Late July Pretzels", s:"Friendly", c:"Shopping", d:"Clean organic ingredients; no MSG or weird spices."},
+    {n:"Kettle Brand (Plain)", s:"Friendly", c:"Shopping", d:"Safe if sea salt only. Avoid 'BBQ' or 'Vinegar' flavors."},
+    {n:"Kraft Mac & Cheese", s:"Avoid", c:"Shopping", d:"Artificial dyes (Yellow 5/6) are known bladder irritants."},
+
+    // BEVERAGE & RECOVERY BRANDS
+    {n:"Dandy Blend", s:"Friendly", c:"Shopping", d:"Roasted root coffee substitute. Zero acid."},
+    {n:"Tyler’s Acid-Free Coffee", s:"Caution", c:"Shopping", d:"The only 'real' coffee that won't sting immediately."},
+    {n:"Evian / Fiji Water", s:"Friendly", c:"Shopping", d:"Naturally alkaline. Great for neutralising urine pH."},
+    {n:"Simple Truth Vapor Distilled Water", s:"Friendly", c:"Shopping", d:"Less acidic than standard RO water."},
+    {n:"Desert Harvest Aloe Vera", s:"Friendly", c:"Shopping", d:"Specifically for rebuilding the bladder lining."},
+    {n:"iSpring FA15 (Filter Add-on)", s:"Friendly", c:"Shopping", d:"The specific filter you need for your RO system to fix the acidity."},
+
+    // STORE TRAPS TO AVOID
+    {n:"Store-Made Rotisserie Chicken", s:"Avoid", c:"Shopping", d:"Injected with Carrageenan and Citric Acid. Huge trigger."},
+    {n:"Bakery Cookies / Donuts", s:"Avoid", c:"Shopping", d:"Preservatives and artificial vanilla (alcohol) sting the bladder."},
+    {n:"Pre-Cut Fruit Medley", s:"Avoid", c:"Shopping", d:"Acidic juices from pineapple leak onto everything else."},
+    {n:"Deli Counter Salads", s:"Avoid", c:"Shopping", d:"Potato/Mac salad always has vinegar and mustard. Major trigger."},
+    {n:"Frozen Dinners", s:"Avoid", c:"Shopping", d:"High sodium and preservatives trigger bladder spasms."}
 ];
