@@ -1,40 +1,52 @@
 const data_brands = [
-    // STORE-SPECIFIC BRANDS (RICHLAND/KENNEWICK)
-    {n:"Simple Truth Organic (Fred Meyer)", s:"Friendly", c:"Shopping", d:"Safe 'Clean' brand. Look for nitrate-free chicken and turkey."},
-    {n:"Boar’s Head Simplicity Line (Yoke's)", s:"Friendly", c:"Shopping", d:"No nitrates or carrageenan. The safest deli meat in Richland."},
-    {n:"Open Nature Protein (Safeway)", s:"Friendly", c:"Shopping", d:"Safeway's clean brand. No antibiotics or nitrates."},
-    {n:"Lucerne Dairy (Safeway)", s:"Friendly", c:"Shopping", d:"Safe cottage cheese and milk. Avoid 'Fruit on the Bottom' yogurts."},
-    {n:"Private Selection Meats (Kroger)", s:"Friendly", c:"Shopping", d:"High quality fresh beef. Avoid pre-seasoned items."},
-    {n:"WinCo Bulk Bins (Grains/Pretzels)", s:"Friendly", c:"Shopping", d:"Cheapest way to buy safe rice, oats, and plain pretzels."},
-    {n:"O Organics Teas (Albertsons)", s:"Friendly", c:"Shopping", d:"Look for Chamomile and Peppermint. Cheap and effective."},
+    // --- MEATS & PROTEINS ---
+    {n:"Applegate Naturals (Turkey/Bacon)", s:"Friendly", c:"Shopping", d:"Nitrate-free and clean. The safest deli brand for sandwiches."},
+    {n:"Boar’s Head Simplicity (Fresh Sliced)", s:"Friendly", c:"Shopping", d:"No nitrates or carrageenan. Request 'Simplicity' line specifically."},
+    {n:"Open Nature (Safeway) Fresh Chicken", s:"Friendly", c:"Shopping", d:"No antibiotics or nitrates. Safe baseline protein."},
+    {n:"Jennie-O Ground Turkey (Plain)", s:"Friendly", c:"Shopping", d:"Safe for burgers. Avoid the pre-seasoned versions."},
+    {n:"Tyson Fresh Poultry (Not Frozen)", s:"Friendly", c:"Shopping", d:"Fresh is safe; frozen bags often have citric acid washes."},
+    {n:"Laura's Lean Beef", s:"Friendly", c:"Shopping", d:"Lower fat and very clean. Generally non-irritating."},
+    {n:"Wild Planet Canned Tuna (Plain)", s:"Caution", c:"Shopping", d:"No broth/soy, but check for 'Natural Flavors'."},
+    {n:"Hormel Natural Choice (Uncured Ham)", s:"Caution", c:"Shopping", d:"Uncured and no nitrates, but high salt can be a minor trigger."},
 
-    // PRODUCT BRANDS (MEATS)
-    {n:"Applegate Naturals", s:"Friendly", c:"Shopping", d:"Gold standard for nitrate-free bacon and deli turkey."},
-    {n:"Jennie-O Ground Turkey", s:"Friendly", c:"Shopping", d:"Reliable safe protein. Avoid 'Taco Seasoned' tubes."},
-    {n:"Tyson Fresh Poultry", s:"Friendly", c:"Shopping", d:"Safe if fresh/un-marinated. Avoid frozen breaded bags."},
-    {n:"Oscar Mayer", s:"Avoid", c:"Shopping", d:"High nitrates and preservatives. Guaranteed to sting."},
+    // --- DAIRY & ALTERNATIVES ---
+    {n:"Annie’s White Cheddar Mac", s:"Friendly", c:"Shopping", d:"No artificial yellow dyes. The safest pre-made mac."},
+    {n:"Lucerne (Safeway) Cottage Cheese", s:"Friendly", c:"Shopping", d:"Safe baseline dairy. Non-acidic and high protein."},
+    {n:"Horizon Organic Milk", s:"Friendly", c:"Shopping", d:"High calcium helps buffer urine pH."},
+    {n:"Fage Total Plain Yogurt", s:"Caution", c:"Shopping", d:"Safer than Greek; less acidic and zero dyes/fruit acid."},
+    {n:"Philadelphia Cream Cheese", s:"Friendly", c:"Shopping", d:"Neutral and safe. Avoid the 'Strawberry' or 'Veggie' mixes."},
+    {n:"Silk Oat Milk (Plain)", s:"Friendly", c:"Shopping", d:"Check for citric acid; plain is usually safe."},
 
-    // PACKAGED GOODS
-    {n:"Annie’s White Cheddar Mac", s:"Friendly", c:"Shopping", d:"Non-acidic cheese and no artificial yellow dyes."},
-    {n:"Bob’s Red Mill Oats", s:"Friendly", c:"Shopping", d:"Highest quality clean grains for your morning baseline."},
-    {n:"Quaker Oats (Plain)", s:"Friendly", c:"Shopping", d:"Safe. Avoid 'Instant Flavored' packets."},
-    {n:"Stacy’s Simply Naked Pita Chips", s:"Friendly", c:"Shopping", d:"Low-ingredient, non-irritating snack."},
-    {n:"Late July Pretzels", s:"Friendly", c:"Shopping", d:"Clean organic ingredients; no MSG or weird spices."},
-    {n:"Kettle Brand (Plain)", s:"Friendly", c:"Shopping", d:"Safe if sea salt only. Avoid 'BBQ' or 'Vinegar' flavors."},
-    {n:"Kraft Mac & Cheese", s:"Avoid", c:"Shopping", d:"Artificial dyes (Yellow 5/6) are known bladder irritants."},
+    // --- PANTRY & BAKERY ---
+    {n:"Bob’s Red Mill Oats", s:"Friendly", c:"Shopping", d:"High quality, clean grains. The safest breakfast base."},
+    {n:"Stacy’s Simply Naked Pita Chips", s:"Friendly", c:"Shopping", d:"Three ingredients. No MSG, no acid. Safe crunch."},
+    {n:"Late July Organic Sea Salt Pretzels", s:"Friendly", c:"Shopping", d:"Clean, non-acidic ingredients. Safe for flares."},
+    {n:"Kettle Brand Sea Salt Chips", s:"Friendly", c:"Shopping", d:"Potatoes, oil, salt. Safe. Avoid 'BBQ' or 'Salt & Vinegar'."},
+    {n:"Tyler’s Acid-Free Coffee", s:"Caution", c:"Shopping", d:"Neutralized pH. Best 'real' coffee option."},
+    {n:"Dandy Blend (Coffee Substitute)", s:"Friendly", c:"Shopping", d:"Roasted root substitute. Zero acid, tastes like coffee."},
+    {n:"Justin’s Almond Butter", s:"Friendly", c:"Shopping", d:"Clean, non-acidic fats. Better than peanut butter for some."},
+    {n:"Mission Flour Tortillas", s:"Friendly", c:"Shopping", d:"Safe and bland. Avoid 'Corn' if you are in a severe flare."},
 
-    // BEVERAGE & RECOVERY BRANDS
-    {n:"Dandy Blend", s:"Friendly", c:"Shopping", d:"Roasted root coffee substitute. Zero acid."},
-    {n:"Tyler’s Acid-Free Coffee", s:"Caution", c:"Shopping", d:"The only 'real' coffee that won't sting immediately."},
-    {n:"Evian / Fiji Water", s:"Friendly", c:"Shopping", d:"Naturally alkaline. Great for neutralising urine pH."},
-    {n:"Simple Truth Vapor Distilled Water", s:"Friendly", c:"Shopping", d:"Less acidic than standard RO water."},
-    {n:"Desert Harvest Aloe Vera", s:"Friendly", c:"Shopping", d:"Specifically for rebuilding the bladder lining."},
-    {n:"iSpring FA15 (Filter Add-on)", s:"Friendly", c:"Shopping", d:"The specific filter you need for your RO system to fix the acidity."},
+    // --- PERSONAL CARE & LAUNDRY ---
+    {n:"All Free Clear Detergent", s:"Friendly", c:"Shopping", d:"No dyes or perfumes. Crucial to prevent skin-to-bladder irritation."},
+    {n:"Seventh Generation Free & Clear", s:"Friendly", c:"Shopping", d:"Safe laundry option for sensitive pelvic nerves."},
+    {n:"Dove Sensitive Skin (Unscented Bar)", s:"Friendly", c:"Shopping", d:"Safest soap to avoid urethral irritation."},
+    {n:"CeraVe Cleanser (Fragrance-Free)", s:"Friendly", c:"Shopping", d:"Safe skin care that won't trigger chemical sensitivity."},
+    {n:"Cottonelle Gentle Care (TP)", s:"Friendly", c:"Shopping", d:"No perfumes or harsh chemicals; better for urethral sensitivity."},
 
-    // STORE TRAPS TO AVOID
-    {n:"Store-Made Rotisserie Chicken", s:"Avoid", c:"Shopping", d:"Injected with Carrageenan and Citric Acid. Huge trigger."},
-    {n:"Bakery Cookies / Donuts", s:"Avoid", c:"Shopping", d:"Preservatives and artificial vanilla (alcohol) sting the bladder."},
-    {n:"Pre-Cut Fruit Medley", s:"Avoid", c:"Shopping", d:"Acidic juices from pineapple leak onto everything else."},
-    {n:"Deli Counter Salads", s:"Avoid", c:"Shopping", d:"Potato/Mac salad always has vinegar and mustard. Major trigger."},
-    {n:"Frozen Dinners", s:"Avoid", c:"Shopping", d:"High sodium and preservatives trigger bladder spasms."}
+    // --- SNACKS & CANDY ---
+    {n:"Werther’s Original (Hard)", s:"Friendly", c:"Shopping", d:"Safe caramel. Avoid 'Sugar-Free' (artificial sweeteners)."},
+    {n:"Rold Gold Tiny Twists", s:"Friendly", c:"Shopping", d:"Safe baseline snack found everywhere."},
+    {n:"Enjoy Life (All Products)", s:"Friendly", c:"Shopping", d:"Allergy-safe brand; almost always bladder-friendly."},
+    {n:"Barnana Plantain Chips (Pink Salt)", s:"Friendly", c:"Shopping", d:"Safe starch. Ensure no lime juice in ingredients."},
+
+    // --- THE RED LIST (AVOID) ---
+    {n:"Kraft Mac & Cheese (Blue Box)", s:"Avoid", c:"Shopping", d:"Artificial dyes (Yellow 5/6) irritate the bladder lining."},
+    {n:"Oscar Mayer Hot Dogs", s:"Avoid", c:"Shopping", d:"High nitrates and chemicals. Guaranteed sting."},
+    {n:"Welch’s / Mott’s Fruit Snacks", s:"Avoid", c:"Shopping", d:"Citric acid and Red 40. Huge flare triggers."},
+    {n:"Hidden Valley Ranch", s:"Avoid", c:"Shopping", d:"Vinegar, MSG, and onion powder. High-level irritant."},
+    {n:"Tide (Original/Scented)", s:"Avoid", c:"Shopping", d:"Strong perfumes can irritate the pelvic floor and urethra."},
+    {n:"Febreze / Strong Scented Sprays", s:"Avoid", c:"Shopping", d:"Environmental irritants that can trigger nerve flares."},
+    {n:"Doritos / Cheetos", s:"Avoid", c:"Shopping", d:"Dyes, MSG, and acids. A triple-threat trigger."},
+    {n:"Gatorade (All Colors)", s:"Avoid", c:"Shopping", d:"Citric acid and dyes. The worst for bladder neck pain."}
 ];
