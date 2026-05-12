@@ -9,13 +9,18 @@
         .controls { position: sticky; top: 0; background: var(--bg); padding-bottom: 10px; z-index: 100; border-bottom: 1px solid #ddd; }
         input { width: 100%; padding: 15px; margin-bottom: 10px; border: 1px solid #ccc; border-radius: 10px; font-size: 16px; box-sizing: border-box; }
         .filter-label { font-size: 10px; font-weight: bold; color: #888; text-transform: uppercase; margin: 5px 0; display: block; }
-        .filter-group { display: flex; gap: 5px; margin-bottom: 8px; overflow-x: auto; white-space: nowrap; padding-bottom: 5px; }
-        .btn { padding: 8px 15px; border: 1px solid #ccc; border-radius: 20px; cursor: pointer; font-weight: bold; font-size: 11px; background: #fff; transition: 0.2s; }
+        
+        /* Multi-Row Layout */
+        .filter-group { display: flex; flex-wrap: wrap; gap: 5px; margin-bottom: 8px; }
+        
+        .btn { padding: 8px 12px; border: 1px solid #ccc; border-radius: 20px; cursor: pointer; font-weight: bold; font-size: 11px; background: #fff; transition: 0.1s; }
         .btn.active { color: white; border-color: transparent; }
+        
         .btn[data-s="Friendly"].active { background: var(--safe); }
         .btn[data-s="Caution"].active { background: var(--caution); }
         .btn[data-s="Avoid"].active { background: var(--avoid); }
         .btn-type.active { background: #3498db; color: white; border-color: #3498db; }
+
         .item { background: white; padding: 15px; margin-bottom: 8px; border-radius: 10px; box-shadow: 0 2px 5px rgba(0,0,0,0.05); border-left: 10px solid #ccc; }
         .item.friendly { border-left-color: var(--safe); }
         .item.caution { border-left-color: var(--caution); }
@@ -27,77 +32,66 @@
 </head>
 <body>
     <div class="controls">
-        <input type="text" id="search" placeholder="Search 12 categories...">
+        <input type="text" id="search" placeholder="Search across categories...">
         <span class="filter-label">Safety Status</span>
-        <div class="filter-group">
-            <button class="btn active" data-s="Friendly">SAFE</button>
-            <button class="btn active" data-s="Caution">CAUTION</button>
-            <button class="btn active" data-s="Avoid">AVOID</button>
+        <div class="filter-group" id="safety-filters">
+            <button class="btn" data-s="Friendly">SAFE</button>
+            <button class="btn" data-s="Caution">CAUTION</button>
+            <button class="btn" data-s="Avoid">AVOID</button>
         </div>
         <span class="filter-label">Filter by Type</span>
         <div class="filter-group" id="type-filters"></div>
     </div>
     <div id="list"></div>
 
-    <!-- The 12 Data Files -->
     <script src="data_breakfast.js"></script>
     <script src="data_drinks.js"></script>
     <script src="data_proteins.js"></script>
-    <script src="data_sides.js"></script>
-    <script src="data_snacks.js"></script>
-    <script src="data_pantry.js"></script>
-    <script src="data_supps.js"></script>
-    <script src="data_dining.js"></script>
-    <script src="data_brands.js"></script>
-    <script src="data_irritants.js"></script>
-    <script src="data_pet.js"></script>
-    <script src="data_flare.js"></script>
 
     <script>
-        // Safely check for each variable before merging
         const dataFiles = [
             typeof data_breakfast !== 'undefined' ? data_breakfast : [],
             typeof data_drinks !== 'undefined' ? data_drinks : [],
-            typeof data_proteins !== 'undefined' ? data_proteins : [],
-            typeof data_sides !== 'undefined' ? data_sides : [],
-            typeof data_snacks !== 'undefined' ? data_snacks : [],
-            typeof data_pantry !== 'undefined' ? data_pantry : [],
-            typeof data_supps !== 'undefined' ? data_supps : [],
-            typeof data_dining !== 'undefined' ? data_dining : [],
-            typeof data_brands !== 'undefined' ? data_brands : [],
-            typeof data_irritants !== 'undefined' ? data_irritants : [],
-            typeof data_pet !== 'undefined' ? data_pet : [],
-            typeof data_flare !== 'undefined' ? data_flare : []
+            typeof data_proteins !== 'undefined' ? data_proteins : []
         ];
         
         const allFoods = [].concat(...dataFiles);
-        let activeSafety = new Set(['Friendly', 'Caution', 'Avoid']);
-        let activeTypes = new Set();
         const listDiv = document.getElementById('list');
         const searchInput = document.getElementById('search');
-        const typeContainer = document.getElementById('type-filters');
 
-        const types = [...new Set(allFoods.map(f => f.c || "General"))].sort();
-        types.forEach(type => {
-            activeTypes.add(type);
-            const btn = document.createElement('button');
-            btn.className = 'btn btn-type active';
-            btn.textContent = type.toUpperCase();
-            btn.onclick = () => {
-                btn.classList.toggle('active');
-                activeTypes.has(type) ? activeTypes.delete(type) : activeTypes.add(type);
-                render();
-            };
-            typeContainer.appendChild(btn);
-        });
+        // MEMORY SYSTEM
+        let activeSafety = new Set(JSON.parse(localStorage.getItem('bSafety')) || []);
+        let activeTypes = new Set(JSON.parse(localStorage.getItem('bTypes')) || []);
 
+        function save() {
+            localStorage.setItem('bSafety', JSON.stringify([...activeSafety]));
+            localStorage.setItem('bTypes', JSON.stringify([...activeTypes]));
+        }
+
+        // INIT SAFETY BUTTONS
         document.querySelectorAll('.btn[data-s]').forEach(btn => {
+            if(activeSafety.has(btn.dataset.s)) btn.classList.add('active');
             btn.onclick = () => {
                 const s = btn.dataset.s;
                 btn.classList.toggle('active');
                 activeSafety.has(s) ? activeSafety.delete(s) : activeSafety.add(s);
-                render();
+                save(); render();
             };
+        });
+
+        // INIT TYPE BUTTONS
+        const types = [...new Set(allFoods.map(f => f.c || "General"))].sort();
+        types.forEach(type => {
+            const btn = document.createElement('button');
+            btn.className = 'btn btn-type';
+            if(activeTypes.has(type)) btn.classList.add('active');
+            btn.textContent = type.toUpperCase();
+            btn.onclick = () => {
+                btn.classList.toggle('active');
+                activeTypes.has(type) ? activeTypes.delete(type) : activeTypes.add(type);
+                save(); render();
+            };
+            document.getElementById('type-filters').appendChild(btn);
         });
 
         function render() {
@@ -110,11 +104,7 @@
                 return mSearch && mSafety && mType;
             });
             filtered.forEach(f => {
-                listDiv.innerHTML += `
-                    <div class="item ${f.s.toLowerCase()}">
-                        <span class="tag">${f.c}</span><span class="name">${f.n}</span>
-                        <div class="details">${f.d}</div>
-                    </div>`;
+                listDiv.innerHTML += `<div class="item ${f.s.toLowerCase()}"><span class="tag">${f.c}</span><span class="name">${f.n}</span><div class="details">${f.d}</div></div>`;
             });
         }
         searchInput.oninput = render;
