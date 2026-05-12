@@ -38,21 +38,22 @@
     </style>
 </head>
 <body>
-    <div class="mode-toggle">
-        <button id="dark-btn" onclick="toggleMode()">DARK MODE</button>
+<div class="controls">
+    <div style="display: flex; gap: 10px; align-items: center; margin-bottom: 10px;">
+        <input type="text" id="search" placeholder="Search categories..." style="margin-bottom: 0;">
+        <button id="dark-btn" onclick="toggleMode()" style="padding: 10px; border-radius: 10px; border: 1px solid #ccc; background: var(--card); color: var(--text); font-size: 10px; font-weight: bold; cursor: pointer; white-space: nowrap;">DARK MODE</button>
     </div>
+    
+    <span class="filter-label">Safety Status</span>
+    <div class="filter-group" id="safety-filters">
+        <button class="btn" data-s="Friendly">SAFE</button>
+        <button class="btn" data-s="Caution">CAUTION</button>
+        <button class="btn" data-s="Avoid">AVOID</button>
+    </div>
+    <span class="filter-label">Filter by Type</span>
+    <div class="filter-group" id="type-filters"></div>
+</div>
 
-    <div class="controls">
-        <input type="text" id="search" placeholder="Search categories...">
-        <span class="filter-label">Safety Status</span>
-        <div class="filter-group" id="safety-filters">
-            <button class="btn" data-s="Friendly">SAFE</button>
-            <button class="btn" data-s="Caution">CAUTION</button>
-            <button class="btn" data-s="Avoid">AVOID</button>
-        </div>
-        <span class="filter-label">Filter by Type</span>
-        <div class="filter-group" id="type-filters"></div>
-    </div>
     <div id="list"></div>
 
     <script src="data_breakfast.js"></script>
