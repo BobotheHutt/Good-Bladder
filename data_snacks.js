@@ -1,57 +1,44 @@
-    // --- ADDITIONAL SAFE CRUNCH & SAVORY ---
-    {n:"Rice Works Sea Salt Crisps", s:"Friendly", c:"Snacks", d:"Clean brown rice crisps. Safe alternative to tortilla chips."},
-    {n:"Harvest Snaps (Lightly Salted)", s:"Friendly", c:"Snacks", d:"Pea crisps. Check for citric acid; original salted is usually safe."},
-    {n:"Barnana Plantain Chips (Pink Salt)", s:"Friendly", c:"Snacks", d:"Safe starch. Ensure no lime juice on the ingredients."},
-    {n:"Enjoy Life Lentil Chips (Plain)", s:"Friendly", c:"Snacks", d:"Top-tier allergy-friendly brand; no common irritants."},
-    {n:"Milton’s Gluten Free Crackers", s:"Friendly", c:"Snacks", d:"Sea Salt version is very bland and bladder-friendly."},
-    {n:"Simply Tostitos (Sea Salt)", s:"Friendly", c:"Snacks", d:"Organic corn and salt; safer than standard versions with 'natural flavors'."},
-    {n:"Pirate’s Booty (Aged White Cheddar)", s:"Caution", c:"Snacks", d:"Lower acid than Cheetos, but some find the 'Aged' cheese triggers a minor itch."},
-    {n:"Blue Diamond Nut-Thins (Original)", s:"Friendly", c:"Snacks", d:"Rice and nut cracker. Non-acidic and safe."},
-    {n:"Mary’s Gone Crackers (Original)", s:"Friendly", c:"Snacks", d:"Safe seeds and grains. Avoid 'Black Pepper' version."},
-    {n:"Lundberg Rice Cakes (Tamari-Free)", s:"Friendly", c:"Snacks", d:"Stick to Sea Salt or Brown Rice versions. Avoid Tamari (soy)."},
-    {n:"Snyder’s Rods", s:"Friendly", c:"Snacks", d:"Thick pretzels are great for buffering stomach acid."},
-    {n:"Way Better Snacks (Plain Corn)", s:"Friendly", c:"Snacks", d:"Sprouted grains; generally easier to digest and safe."},
-    {n:"Wheat Thins (Original)", s:"Caution", c:"Snacks", d:"Generally safe, but high sugar content can be a minor inflammatory."},
-    {n:"Simple Truth (Kroger) Veggie Straws", s:"Caution", c:"Snacks", d:"Check for citric acid. The plain sea salt version is usually safe."},
+const data_supps = [
+    // --- YOUR CURRENT PROTOCOL ---
+    {n:"NAC (N-Acetylcysteine)", s:"Friendly", c:"Supps", d:"1000mg. Antioxidant that reduces tissue inflammation and helps break down bacterial biofilms. Take with food."},
+    {n:"Baking Soda (Sodium Bicarb)", s:"Friendly", c:"Supps", d:"Alkalizer used to neutralize acidic urine and stop the 'lemon on a cut' sting."},
+    {n:"Selsun Blue (Selenium Sulfide)", s:"Friendly", c:"Supps", d:"Antifungal/Antibacterial wash. Use for the 'Gemtesa acne' flare-ups on the skin."},
 
-    // --- ADDITIONAL SWEET & DESSERT ---
-    {n:"Magnum White Chocolate Bar", s:"Friendly", c:"Snacks", d:"Pure white chocolate coating is safe. Avoid versions with fruit swirls."},
-    {n:"Häagen-Dazs Vanilla Bean", s:"Friendly", c:"Snacks", d:"Clean ingredients. Avoid 'Chocolate' or 'Coffee' flavors."},
-    {n:"Breyers Natural Vanilla", s:"Friendly", c:"Snacks", d:"Very few additives. Safe baseline dessert."},
-    {n:"Nilla Wafer Pudding (Vanilla)", s:"Friendly", c:"Snacks", d:"Safe comfort snack. Use real milk to help buffer pH."},
-    {n:"Golden Oreos", s:"Caution", c:"Snacks", d:"No chocolate, but high in preservatives. Test small amounts."},
-    {n:"Shortbread Fingers (Keebler)", s:"Friendly", c:"Snacks", d:"Simple fats and flour. Non-acidic."},
-    {n:"Teddy Grahams (Honey)", s:"Friendly", c:"Snacks", d:"Safe for kids and adults. No chocolate or dyes."},
-    {n:"Fig Newtons", s:"Caution", c:"Snacks", d:"Figs can be a trigger for some due to tyramine/acid. Test small."},
-    {n:"Fortune Cookies (Bulk)", s:"Friendly", c:"Snacks", d:"Very safe; almost no flavor irritants."},
-    {n:"Tapioca Pudding", s:"Friendly", c:"Snacks", d:"Very soothing for the gut and bladder. Use vanilla only."},
-    {n:"Homemade Pear Crisp", s:"Friendly", c:"Snacks", d:"Oats, butter, sugar, and pears. The ultimate safe dessert."},
+    // --- BLADDER LINING BUILDERS (GAG LAYER REPAIR) ---
+    {n:"Desert Harvest Aloe Vera", s:"Friendly", c:"Supps", d:"Super-strength, latex-free aloe. Acts as a liquid bandage to rebuild the protective GAG layer."},
+    {n:"CystoMend", s:"Friendly", c:"Supps", d:"Lining repair blend (Chondroitin/Hyaluronate). Helps restore the barrier against acidic urine."},
+    {n:"Cysto Renew", s:"Friendly", c:"Supps", d:"Douglas Labs blend. Calms the bladder nerves and supports the lining. No citrus triggers."},
+    {n:"Chondroitin Sulfate", s:"Friendly", c:"Supps", d:"The actual 'building block' of the bladder lining. Often taken with glucosamine."},
+    {n:"Sodium Hyaluronate (Oral)", s:"Friendly", c:"Supps", d:"Helps keep the bladder lining hydrated and resilient against irritation."},
+    {n:"Slippery Elm", s:"Friendly", c:"Supps", d:"Contains mucilage that physically coats and soothes the urinary tract. Very low risk."},
 
-    // --- CANDY (NO ACID / NO DYES) ---
-    {n:"Andes White Mints", s:"Friendly", c:"Snacks", d:"Safe alternative to chocolate mints. Peppermint is soothing."},
-    {n:"Altoids (Peppermint)", s:"Friendly", c:"Snacks", d:"Strong, but safe. Avoid 'Cinnamon' or 'Fruit' flavors."},
-    {n:"Mentos (Mint)", s:"Friendly", c:"Snacks", d:"Safe chewy mint. Avoid 'Fruit' Mentos entirely."},
-    {n:"Necco Wafers (White/Wintergreen)", s:"Friendly", c:"Snacks", d:"Avoid the fruit-flavored wafers in the pack."},
-    {n:"Rock Candy (Clear)", s:"Friendly", c:"Snacks", d:"Pure sugar. Safe as long as there is no dye or flavoring."},
-    {n:"Salt Water Taffy (Vanilla/Vanilla Bean)", s:"Friendly", c:"Snacks", d:"Safe. Avoid 'Cherry,' 'Lemon,' or 'Orange' flavors."},
+    // --- PAIN & INFLAMMATION MANAGEMENT ---
+    {n:"Prelief", s:"Friendly", c:"Supps", d:"Calcium Glycerophosphate. Take 2 pills with meals to take the acid out of food before it hits the bladder."},
+    {n:"Quercetin (Bioflavonoid)", s:"Friendly", c:"Supps", d:"Natural anti-inflammatory. Helps stabilize mast cells that cause bladder flares."},
+    {n:"Palmitoylethanolamide (PEA)", s:"Friendly", c:"Supps", d:"A fatty acid that helps calm the chronic nerve pain in the pelvic floor and bladder."},
+    {n:"Omega-3 Fish Oil (Clean)", s:"Friendly", c:"Supps", d:"Reduces systemic inflammation. Ensure no 'lemon' flavor added to the oil."},
+    {n:"Marshmallow Root (Capsules)", s:"Friendly", c:"Supps", d:"Traditional herb for bladder burning. Creates a protective 'slime' layer in the tract."},
+    {n:"Corn Silk (Capsules)", s:"Friendly", c:"Supps", d:"Soothing herb specifically for irritation at the bladder neck and prostate junction."},
 
-    // --- THE RED LIST (AVOID - HIDDEN ACID/CHEMICALS) ---
-    {n:"Skittles (All types)", s:"Avoid", c:"Snacks", d:"Pure citric and malic acid. Guaranteed to trigger burning."},
-    {n:"Gummy Bears (Haribo)", s:"Avoid", c:"Snacks", d:"Citric acid is the primary preservative. Major flare risk."},
-    {n:"Sour Patch Kids", s:"Avoid", c:"Snacks", d:"Coated in malic acid 'dust'. Extremely aggressive on the bladder."},
-    {n:"Starburst", s:"Avoid", c:"Snacks", d:"Fruit acid and Red 40. High risk for 200ml emergencies."},
-    {n:"Pringles (Sour Cream / BBQ)", s:"Avoid", c:"Snacks", d:"High levels of MSG and citric acid. Major nerve irritant."},
-    {n:"Doritos (Cool Ranch / Nacho)", s:"Avoid", c:"Snacks", d:"Dyes and MSG. Triggers 'burning itch' at the prostate."},
-    {n:"Takis / Hot Chips", s:"Avoid", c:"Snacks", d:"Capsaicin and Red Dye 40. Extreme urethral irritant."},
-    {n:"SunChips (Garden Salsa / French Onion)", s:"Avoid", c:"Snacks", d:"Onion powder and spices. Irritates the bladder neck."},
-    {n:"Fruit Roll-ups / Fruit by the Foot", s:"Avoid", c:"Snacks", d:"Concentrated acid and chemical dyes. Massive trigger."},
-    {n:"Raisins / Sun-Maid Packs", s:"Avoid", c:"Snacks", d:"Highly acidic when digested. Causes rapid burning."},
-    {n:"Beef Sticks / Slim Jims", s:"Avoid", c:"Snacks", d:"Nitrates and preservatives. Bad for veiny bladder lining."},
-    {n:"Chocolate Pretzels", s:"Avoid", c:"Snacks", d:"The chocolate caffeine overrides the 'safe' pretzel."},
-    {n:"Snickers / Twix / Milky Way", s:"Avoid", c:"Snacks", d:"Caffeine and corn syrup fuel tissue inflammation."},
-    {n:"Yogurt Covered Snacks (Store)", s:"Avoid", c:"Snacks", d:"Usually highly processed with lemon juice/acid."},
-    {n:"Cranberry Trail Mix", s:"Avoid", c:"Snacks", d:"Craisins are pure acid for an IC bladder."},
-    {n:"Instant Pudding (Chocolate)", s:"Avoid", c:"Snacks", d:"Caffeine and preservatives. Use Vanilla instead."},
-    {n:"Licorice (Red/Cherry)", s:"Avoid", c:"Snacks", d:"Red Dye 40 and citric acid. High risk."},
-    {n:"Vending Machine Donuts", s:"Avoid", c:"Snacks", d:"Preservatives and alcohol-based vanilla sting the lining."},
-    {n:"Sugar-Free Mentos", s:"Avoid", c:"Snacks", d:"Artificial sweeteners are bladder neurotoxins."}
+    // --- PHARMACEUTICALS (CONSULT DOCTOR) ---
+    {n:"Alfuzosin (Uroxatral)", s:"Friendly", c:"Supps", d:"Alpha-blocker. Relaxes the bladder neck/prostate to stop the sharp mid-stream burn."},
+    {n:"Botox (Injected)", s:"Friendly", c:"Supps", d:"Relaxes the bladder muscle. Takes 10-14 days to reach full effect. Non-systemic."},
+    {n:"Nortriptyline / Amitriptyline", s:"Caution", c:"Supps", d:"Low-dose nerve meds. Mutes pain signals but can cause dry mouth and grogginess."},
+    {n:"AZO (Phenazopyridine)", s:"Caution", c:"Supps", d:"Emergency tract numbing. Use only for 48 hours; can irritate the kidneys if overused."},
+    {n:"Gemtesa", s:"Caution", c:"Supps", d:"OAB med. Good for spasms but likely the cause of your current skin whiteheads/acne."},
+    {n:"D-Mannose", s:"Caution", c:"Supps", d:"Good for E.coli prevention, but some brands use citric acid as a filler. Check label."},
+
+    // --- SLEEP & STRESS ---
+    {n:"Melatonin", s:"Friendly", c:"Supps", d:"Anti-inflammatory properties and helps with sleep during overnight frequency flares."},
+    {n:"L-Theanine", s:"Friendly", c:"Supps", d:"Calms the nervous system; helps reduce the 'fight or flight' kidney dump (diuresis)."},
+    {n:"Valerian Root", s:"Friendly", c:"Supps", d:"Safe herbal sleep aid. Doesn't usually irritate the bladder."},
+
+    // --- THE RED LIST (AVOID - BLADDER FIRE) ---
+    {n:"Vitamin C (Ascorbic Acid)", s:"Avoid", c:"Supps", d:"Pure acid. Like pouring bleach on a wound for an IC bladder. Avoid entirely."},
+    {n:"Vitamin B-Complex / B12", s:"Avoid", c:"Supps", d:"Known nerve irritant. Causes intense 'neon' urine and sharp burning pain."},
+    {n:"Standard Multivitamins", s:"Avoid", c:"Supps", d:"Usually loaded with high-dose B and C vitamins + artificial dyes (Red 40)."},
+    {n:"Cranberry Supplements", s:"Avoid", c:"Supps", d:"Extremely acidic. Great for UTIs in normal bladders, poison for a raw IC bladder."},
+    {n:"Zinc (High Dose)", s:"Avoid", c:"Supps", d:"Can be a systemic irritant for the prostate and bladder during an active flare."},
+    {n:"St. John’s Wort", s:"Avoid", c:"Supps", d:"Can cause photosensitivity and increase general nerve sensitivity in the pelvis."},
+    {n:"Energy Boosters (Caffeine/Guarana)", s:"Avoid", c:"Supps", d:"Pure stimulants. Will trigger spasms and 200ml emergency flushes."}
+];
