@@ -9,18 +9,13 @@
         .controls { position: sticky; top: 0; background: var(--bg); padding-bottom: 10px; z-index: 100; border-bottom: 1px solid #ddd; }
         input { width: 100%; padding: 15px; margin-bottom: 10px; border: 1px solid #ccc; border-radius: 10px; font-size: 16px; box-sizing: border-box; }
         .filter-label { font-size: 10px; font-weight: bold; color: #888; text-transform: uppercase; margin: 5px 0; display: block; }
-        
-        /* Multi-Row Layout */
         .filter-group { display: flex; flex-wrap: wrap; gap: 5px; margin-bottom: 8px; }
-        
         .btn { padding: 8px 12px; border: 1px solid #ccc; border-radius: 20px; cursor: pointer; font-weight: bold; font-size: 11px; background: #fff; transition: 0.1s; }
         .btn.active { color: white; border-color: transparent; }
-        
         .btn[data-s="Friendly"].active { background: var(--safe); }
         .btn[data-s="Caution"].active { background: var(--caution); }
         .btn[data-s="Avoid"].active { background: var(--avoid); }
         .btn-type.active { background: #3498db; color: white; border-color: #3498db; }
-
         .item { background: white; padding: 15px; margin-bottom: 8px; border-radius: 10px; box-shadow: 0 2px 5px rgba(0,0,0,0.05); border-left: 10px solid #ccc; }
         .item.friendly { border-left-color: var(--safe); }
         .item.caution { border-left-color: var(--caution); }
@@ -32,7 +27,7 @@
 </head>
 <body>
     <div class="controls">
-        <input type="text" id="search" placeholder="Search across categories...">
+        <input type="text" id="search" placeholder="Search 11 categories...">
         <span class="filter-label">Safety Status</span>
         <div class="filter-group" id="safety-filters">
             <button class="btn" data-s="Friendly">SAFE</button>
@@ -44,22 +39,38 @@
     </div>
     <div id="list"></div>
 
+    <!-- THE 11 DATA FILES -->
     <script src="data_breakfast.js"></script>
     <script src="data_drinks.js"></script>
     <script src="data_proteins.js"></script>
+    <script src="data_sides.js"></script>
+    <script src="data_snacks.js"></script>
+    <script src="data_pantry.js"></script>
+    <script src="data_supps.js"></script>
+    <script src="data_dining.js"></script>
+    <script src="data_brands.js"></script>
+    <script src="data_irritants.js"></script>
+    <script src="data_pet.js"></script>
 
     <script>
         const dataFiles = [
             typeof data_breakfast !== 'undefined' ? data_breakfast : [],
             typeof data_drinks !== 'undefined' ? data_drinks : [],
-            typeof data_proteins !== 'undefined' ? data_proteins : []
+            typeof data_proteins !== 'undefined' ? data_proteins : [],
+            typeof data_sides !== 'undefined' ? data_sides : [],
+            typeof data_snacks !== 'undefined' ? data_snacks : [],
+            typeof data_pantry !== 'undefined' ? data_pantry : [],
+            typeof data_supps !== 'undefined' ? data_supps : [],
+            typeof data_dining !== 'undefined' ? data_dining : [],
+            typeof data_brands !== 'undefined' ? data_brands : [],
+            typeof data_irritants !== 'undefined' ? data_irritants : [],
+            typeof data_pet !== 'undefined' ? data_pet : []
         ];
         
         const allFoods = [].concat(...dataFiles);
         const listDiv = document.getElementById('list');
         const searchInput = document.getElementById('search');
 
-        // MEMORY SYSTEM
         let activeSafety = new Set(JSON.parse(localStorage.getItem('bSafety')) || []);
         let activeTypes = new Set(JSON.parse(localStorage.getItem('bTypes')) || []);
 
@@ -68,7 +79,6 @@
             localStorage.setItem('bTypes', JSON.stringify([...activeTypes]));
         }
 
-        // INIT SAFETY BUTTONS
         document.querySelectorAll('.btn[data-s]').forEach(btn => {
             if(activeSafety.has(btn.dataset.s)) btn.classList.add('active');
             btn.onclick = () => {
@@ -79,7 +89,6 @@
             };
         });
 
-        // INIT TYPE BUTTONS
         const types = [...new Set(allFoods.map(f => f.c || "General"))].sort();
         types.forEach(type => {
             const btn = document.createElement('button');
