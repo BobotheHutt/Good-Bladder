@@ -21,15 +21,77 @@
     <div id="list"></div>
 
     <script>
-        const foods = [
-            ["Water (Buffered RO or Spring)", "Bladder Friendly", "Low acid, neutral pH. Essential for healing."],
-            ["Oatmeal (Plain)", "Bladder Friendly", "Bland, non-acidic. Best breakfast choice right now."],
-            ["Coffee", "Avoid", "High acid and caffeine. Major trigger for 'lemon on a cut' feeling."],
-            ["Craisins", "Avoid", "Extremely high benzoic acid. Huge trigger for mid-stream burn."],
-            ["Blueberries", "Caution", "Safest berry, but can be acidic in large amounts during a flare."],
-            ["NAC Supplement", "Bladder Friendly", "Antioxidant used to help with bladder/prostate inflammation."],
-            ["Baking Soda Water", "Bladder Friendly", "Neutralizes acidic RO water to stop the stinging."]
-            // ... (You can paste the rest of the 200+ items here)
+                const foods = [
+            {n:"Water (Buffered RO/Spring)", s:"Friendly", d:"Low acid, neutral pH. Essential for healing."},
+            {n:"Oatmeal (Plain)", s:"Friendly", d:"Bland, non-acidic. Best breakfast choice right now."},
+            {n:"Pears (Peeled)", s:"Friendly", d:"One of the least acidic fruits available."},
+            {n:"Bananas", s:"Friendly", d:"Low acid and soothing."},
+            {n:"Honey", s:"Friendly", d:"Good natural sweetener, less inflammatory than sugar."},
+            {n:"Blueberries", s:"Caution", d:"Safest berry, but can be acidic in large amounts during flare."},
+            {n:"Greek Yogurt (Vanilla)", s:"Caution", d:"Higher acid than regular; vanilla extract may have alcohol."},
+            {n:"Brown Sugar", s:"Caution", d:"Fine in moderation, but high sugar feeds inflammation."},
+            {n:"Coffee", s:"Avoid", d:"High acid/caffeine. Major trigger for 'lemon on a cut' feeling."},
+            {n:"Craisins", s:"Avoid", d:"Extremely high benzoic acid. Huge trigger for mid-stream burn."},
+            {n:"Twizzlers / Red Dye 40", s:"Avoid", d:"Artificial dyes and high sugar are chemical irritants."},
+            {n:"Mott's Fruit Snacks", s:"Avoid", d:"Citric acid and dyes trigger rapid-fill '200ml' emergencies."},
+            {n:"Vanilla Extract", s:"Avoid", d:"Often contains alcohol which irritates the bladder neck."},
+            {n:"Cranberry Juice", s:"Avoid", d:"Very high acidity; usually a major IC trigger."},
+            {n:"Soda / Carbonated Water", s:"Avoid", d:"Carbonation and acids irritate the bladder lining."},
+            {n:"Alcohol", s:"Avoid", d:"Systemic irritant and dehydrating."},
+            {n:"Orange / Lemon / Lime", s:"Avoid", d:"Pure citric acid. High risk for intense stinging."},
+            {n:"Spicy Foods (Chili/Hot Sauce)", s:"Avoid", d:"Capsaicin excreted in urine burns the bladder."},
+            {n:"Soy Sauce / MSG", s:"Avoid", d:"High sodium and additives can cause nerve sensitivity."},
+            {n:"Pickles / Vinegar", s:"Avoid", d:"Extremely acidic and fermented; major flare trigger."},
+            {n:"Chicken (Plain)", s:"Friendly", d:"Safe, low-inflammatory protein."},
+            {n:"Eggs", s:"Friendly", d:"Generally very safe and non-irritating."},
+            {n:"White Rice", s:"Friendly", d:"Bland and low-fiber; easy on the gut and bladder."},
+            {n:"Potatoes (White/Sweet)", s:"Friendly", d:"Low acid, filling, and safe."},
+            {n:"Broccoli", s:"Friendly", d:"Safe vegetable option."},
+            {n:"Carrots", s:"Friendly", d:"Non-acidic and safe."},
+            {n:"Almonds", s:"Friendly", d:"Good snack, low acid."},
+            {n:"Milk (Cow/Almond/Oat)", s:"Friendly", d:"Usually alkaline/neutral; helps buffer acid."},
+            {n:"Cottage Cheese", s:"Friendly", d:"Low acid dairy option."},
+            {n:"Cucumber", s:"Friendly", d:"High water content and neutral pH."},
+            {n:"Celery", s:"Friendly", d:"Low acid and hydrating."},
+            {n:"Zucchini", s:"Friendly", d:"Safe and non-irritating."},
+            {n:"Apples (Gala/Fuji)", s:"Caution", d:"Sweeter apples are safer than tart ones like Granny Smith."},
+            {n:"Strawberries", s:"Avoid", d:"High acid and common flare trigger."},
+            {n:"Pineapple", s:"Avoid", d:"Highly acidic; bromelain can sting raw tissue."},
+            {n:"Tomatoes / Pasta Sauce", s:"Avoid", d:"Highly acidic; one of the most common IC triggers."},
+            {n:"Raw Onions", s:"Avoid", d:"Very irritating to the bladder and prostate junction."},
+            {n:"Aged Cheeses", s:"Avoid", d:"High in tyramine which can trigger bladder nerve pain."},
+            {n:"Processed Meats (Deli/Salami)", s:"Avoid", d:"Nitrates and preservatives are major irritants."},
+            {n:"Artificial Sweeteners", s:"Avoid", d:"Aspartame and Saccharin are known bladder neurotoxins."},
+            {n:"Salmon (Fresh)", s:"Friendly", d:"Anti-inflammatory omega-3s are great for healing tissue."},
+            {n:"Quinoa", s:"Friendly", d:"Safe grain alternative to rice or wheat."},
+            {n:"Cashews", s:"Friendly", d:"Non-irritating nut choice."},
+            {n:"Watermelon", s:"Friendly", d:"High water content helps dilute urine; very low acid."},
+            {n:"Honeydew Melon", s:"Friendly", d:"Neutral pH and very safe."},
+            {n:"Asparagus", s:"Caution", d:"Can make urine smell; may cause minor irritation."},
+            {n:"Avocado", s:"Caution", d:"Generally safe but contains tyramine which affects some nerves."},
+            {n:"Mushrooms", s:"Friendly", d:"Safe and non-acidic."},
+            {n:"Garlic (Cooked)", s:"Caution", d:"Better tolerated than raw; keep amounts small."},
+            {n:"Pretzels", s:"Friendly", d:"Safe salty snack. Avoid 'honey mustard' versions."},
+            {n:"Mozzarella Cheese", s:"Friendly", d:"Lower acid and lower tyramine than aged cheeses."},
+            {n:"Ricotta Cheese", s:"Friendly", d:"Very safe dairy option."},
+            {n:"Peppermint Tea", s:"Friendly", d:"Natural antispasmodic; helps relax bladder muscle."},
+            {n:"Chamomile Tea", s:"Friendly", d:"Soothing and anti-inflammatory."},
+            {n:"Marshmallows", s:"Friendly", d:"One of the few safe candies (check for dye/acid)."},
+            {n:"Walnuts", s:"Friendly", d:"Safe and healthy fats."},
+            {n:"Turkey (Fresh)", s:"Friendly", d:"Low-acid protein. Avoid deli-sliced with nitrates."},
+            {n:"Squash", s:"Friendly", d:"Very safe and soothing vegetable."},
+            {n:"Shrimp (Fresh)", s:"Friendly", d:"Safe if not seasoned with lemon/cocktail sauce."},
+            {n:"Chocolate", s:"Avoid", d:"Contains caffeine and theobromine; irritates nerves."},
+            {n:"Ketchup", s:"Avoid", d:"Concentrated tomatoes + vinegar = massive trigger."},
+            {n:"Mustard", s:"Avoid", d:"Vinegar and mustard seed are high-level irritants."},
+            {n:"Mayonnaise", s:"Avoid", d:"Contains vinegar and lemon juice."},
+            {n:"Salsa", s:"Avoid", d:"Combines tomatoes, onions, and peppers. Extreme trigger."},
+            {n:"Soy Sauce", s:"Avoid", d:"High salt and soy; triggers nerve pain for many."},
+            {n:"Pepperoni / Sausage", s:"Avoid", d:"Nitrates and spices burn the bladder neck."},
+            {n:"Cider", s:"Avoid", d:"Extremely acidic fermented drink."},
+            {n:"Energy Drinks", s:"Avoid", d:"High caffeine, acid, and chemicals. Avoid during recovery."},
+            {n:"NAC Supplement", s:"Friendly", d:"1000mg. Antioxidant for bladder/prostate inflammation."},
+            {n:"Baking Soda Water", s:"Friendly", d:"Helps neutralize RO water to stop stinging."}
         ];
 
         const listDiv = document.getElementById('list');
@@ -37,9 +99,14 @@
 
         function render(filter = '') {
             listDiv.innerHTML = '';
-            foods.filter(f => f[0].toLowerCase().includes(filter.toLowerCase())).forEach(f => {
-                const type = f[1].toLowerCase().includes('friendly') ? 'friendly' : f[1].toLowerCase().includes('caution') ? 'caution' : 'avoid';
-                listDiv.innerHTML += `<div class="item ${type}"><div class="status">${f[1]}</div><span class="name">${f[0]}</span><div class="details">${f[2]}</div></div>`;
+            foods.filter(f => f.n.toLowerCase().includes(filter.toLowerCase())).forEach(f => {
+                const typeClass = f.s.toLowerCase() === 'friendly' ? 'friendly' : f.s.toLowerCase() === 'caution' ? 'caution' : 'avoid';
+                listDiv.innerHTML += `
+                    <div class="item ${typeClass}">
+                        <div class="status">${f.s}</div>
+                        <span class="name">${f.n}</span>
+                        <div class="details">${f.d}</div>
+                    </div>`;
             });
         }
 
