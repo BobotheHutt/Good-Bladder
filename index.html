@@ -133,14 +133,24 @@
         function render() {
             const search = searchInput.value.toLowerCase();
             listDiv.innerHTML = '';
+            
             const filtered = allFoods.filter(f => {
                 const mSearch = f.n.toLowerCase().includes(search) || (f.d && f.d.toLowerCase().includes(search));
                 const mSafety = activeSafety.has(f.s);
-                const mType = (f.c || "General") === activeType;
+                
+                // NEW LOGIC: If searching, ignore Category. If not searching, use Category.
+                const mType = (search.length > 0) ? true : (f.c || "General") === activeType;
+                
                 return mSearch && mSafety && mType;
             });
+
             filtered.forEach(f => {
-                listDiv.innerHTML += `<div class="item ${f.s.toLowerCase()}"><span class="tag">${f.c}</span><span class="name">${f.n}</span><div class="details">${f.d || ''}</div></div>`;
+                listDiv.innerHTML += `
+                    <div class="item ${f.s.toLowerCase()}">
+                        <span class="tag">${f.c}</span>
+                        <span class="name">${f.n}</span>
+                        <div class="details">${f.d || ''}</div>
+                    </div>`;
             });
         }
         searchInput.oninput = render;
