@@ -8,66 +8,78 @@
         body { font-family: -apple-system, sans-serif; padding: 15px; max-width: 800px; margin: auto; background: var(--bg); }
         .controls { position: sticky; top: 0; background: var(--bg); padding-bottom: 10px; z-index: 100; border-bottom: 1px solid #ddd; }
         input { width: 100%; padding: 15px; margin-bottom: 10px; border: 1px solid #ccc; border-radius: 10px; font-size: 16px; box-sizing: border-box; }
-        
         .filter-label { font-size: 10px; font-weight: bold; color: #888; text-transform: uppercase; margin: 5px 0; display: block; }
         .filter-group { display: flex; gap: 5px; margin-bottom: 8px; overflow-x: auto; white-space: nowrap; padding-bottom: 5px; }
-        
-        .btn { padding: 8px 15px; border: 1px solid #ccc; border-radius: 20px; cursor: pointer; font-weight: bold; font-size: 12px; background: #fff; transition: 0.2s; }
+        .btn { padding: 8px 15px; border: 1px solid #ccc; border-radius: 20px; cursor: pointer; font-weight: bold; font-size: 11px; background: #fff; transition: 0.2s; }
         .btn.active { color: white; border-color: transparent; }
-        
-        /* Safety Colors */
         .btn[data-s="Friendly"].active { background: var(--safe); }
         .btn[data-s="Caution"].active { background: var(--caution); }
         .btn[data-s="Avoid"].active { background: var(--avoid); }
-        
-        /* Type Color */
         .btn-type.active { background: #3498db; color: white; border-color: #3498db; }
-
         .item { background: white; padding: 15px; margin-bottom: 8px; border-radius: 10px; box-shadow: 0 2px 5px rgba(0,0,0,0.05); border-left: 10px solid #ccc; }
         .item.friendly { border-left-color: var(--safe); }
         .item.caution { border-left-color: var(--caution); }
         .item.avoid { border-left-color: var(--avoid); }
         .name { font-weight: bold; font-size: 1.1em; }
+        .tag { font-size: 0.7em; background: #eee; padding: 2px 6px; border-radius: 4px; margin-right: 5px; font-weight: bold; vertical-align: middle;}
         .details { color: #666; font-size: 0.85em; margin-top: 4px; }
     </style>
 </head>
 <body>
     <div class="controls">
-        <input type="text" id="search" placeholder="Search foods...">
-        
+        <input type="text" id="search" placeholder="Search 12 categories...">
         <span class="filter-label">Safety Status</span>
         <div class="filter-group">
             <button class="btn active" data-s="Friendly">SAFE</button>
             <button class="btn active" data-s="Caution">CAUTION</button>
             <button class="btn active" data-s="Avoid">AVOID</button>
         </div>
-
-        <span class="filter-label">Food Types</span>
-        <div class="filter-group" id="type-filters">
-            <!-- Type buttons injected here -->
-        </div>
+        <span class="filter-label">Filter by Type</span>
+        <div class="filter-group" id="type-filters"></div>
     </div>
     <div id="list"></div>
 
-    <script src="data_drinks.js"></script>
+    <!-- The 12 Data Files -->
     <script src="data_breakfast.js"></script>
+    <script src="data_drinks.js"></script>
+    <script src="data_proteins.js"></script>
+    <script src="data_sides.js"></script>
+    <script src="data_snacks.js"></script>
+    <script src="data_pantry.js"></script>
+    <script src="data_supps.js"></script>
+    <script src="data_dining.js"></script>
+    <script src="data_brands.js"></script>
+    <script src="data_irritants.js"></script>
+    <script src="data_pet.js"></script>
+    <script src="data_flare.js"></script>
 
     <script>
-        // Combine data
-        const allFoods = [...data_drinks, ...data_breakfast];
+        // Safely check for each variable before merging
+        const dataFiles = [
+            typeof data_breakfast !== 'undefined' ? data_breakfast : [],
+            typeof data_drinks !== 'undefined' ? data_drinks : [],
+            typeof data_proteins !== 'undefined' ? data_proteins : [],
+            typeof data_sides !== 'undefined' ? data_sides : [],
+            typeof data_snacks !== 'undefined' ? data_snacks : [],
+            typeof data_pantry !== 'undefined' ? data_pantry : [],
+            typeof data_supps !== 'undefined' ? data_supps : [],
+            typeof data_dining !== 'undefined' ? data_dining : [],
+            typeof data_brands !== 'undefined' ? data_brands : [],
+            typeof data_irritants !== 'undefined' ? data_irritants : [],
+            typeof data_pet !== 'undefined' ? data_pet : [],
+            typeof data_flare !== 'undefined' ? data_flare : []
+        ];
         
-        // State tracking
+        const allFoods = [].concat(...dataFiles);
         let activeSafety = new Set(['Friendly', 'Caution', 'Avoid']);
         let activeTypes = new Set();
-        
         const listDiv = document.getElementById('list');
         const searchInput = document.getElementById('search');
         const typeContainer = document.getElementById('type-filters');
 
-        // 1. Create Type Buttons dynamically
-        const types = [...new Set(allFoods.map(f => f.c || "General"))];
+        const types = [...new Set(allFoods.map(f => f.c || "General"))].sort();
         types.forEach(type => {
-            activeTypes.add(type); // Default to all selected
+            activeTypes.add(type);
             const btn = document.createElement('button');
             btn.className = 'btn btn-type active';
             btn.textContent = type.toUpperCase();
@@ -79,7 +91,6 @@
             typeContainer.appendChild(btn);
         });
 
-        // 2. Safety Button Toggles
         document.querySelectorAll('.btn[data-s]').forEach(btn => {
             btn.onclick = () => {
                 const s = btn.dataset.s;
@@ -92,23 +103,20 @@
         function render() {
             const search = searchInput.value.toLowerCase();
             listDiv.innerHTML = '';
-            
             const filtered = allFoods.filter(f => {
                 const mSearch = f.n.toLowerCase().includes(search) || f.d.toLowerCase().includes(search);
                 const mSafety = activeSafety.has(f.s);
                 const mType = activeTypes.has(f.c || "General");
                 return mSearch && mSafety && mType;
             });
-
             filtered.forEach(f => {
                 listDiv.innerHTML += `
                     <div class="item ${f.s.toLowerCase()}">
-                        <span class="name">${f.n}</span>
+                        <span class="tag">${f.c}</span><span class="name">${f.n}</span>
                         <div class="details">${f.d}</div>
                     </div>`;
             });
         }
-
         searchInput.oninput = render;
         render();
     </script>
