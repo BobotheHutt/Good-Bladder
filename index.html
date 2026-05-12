@@ -6,15 +6,23 @@
     <style>
         :root { --safe: #2ecc71; --caution: #f1c40f; --avoid: #e74c3c; --bg: #f4f4f9; }
         body { font-family: -apple-system, sans-serif; padding: 15px; max-width: 800px; margin: auto; background: var(--bg); }
-        .controls { position: sticky; top: 0; background: var(--bg); padding-bottom: 10px; z-index: 100; }
+        .controls { position: sticky; top: 0; background: var(--bg); padding-bottom: 10px; z-index: 100; border-bottom: 1px solid #ddd; }
         input { width: 100%; padding: 15px; margin-bottom: 10px; border: 1px solid #ccc; border-radius: 10px; font-size: 16px; box-sizing: border-box; }
-        .filter-group { display: flex; gap: 5px; margin-bottom: 10px; overflow-x: auto; white-space: nowrap; padding-bottom: 5px; }
-        .tab { padding: 8px 15px; border: none; border-radius: 20px; cursor: pointer; font-weight: bold; font-size: 12px; background: #ddd; }
-        .tab.active { color: white; }
-        .tab[data-safety="all"].active { background: #34495e; }
-        .tab[data-safety="Friendly"].active { background: var(--safe); }
-        .tab[data-safety="Caution"].active { background: var(--caution); }
-        .tab[data-safety="Avoid"].active { background: var(--avoid); }
+        
+        .filter-label { font-size: 10px; font-weight: bold; color: #888; text-transform: uppercase; margin: 5px 0; display: block; }
+        .filter-group { display: flex; gap: 5px; margin-bottom: 8px; overflow-x: auto; white-space: nowrap; padding-bottom: 5px; }
+        
+        .btn { padding: 8px 15px; border: 1px solid #ccc; border-radius: 20px; cursor: pointer; font-weight: bold; font-size: 12px; background: #fff; transition: 0.2s; }
+        .btn.active { color: white; border-color: transparent; }
+        
+        /* Safety Colors */
+        .btn[data-s="Friendly"].active { background: var(--safe); }
+        .btn[data-s="Caution"].active { background: var(--caution); }
+        .btn[data-s="Avoid"].active { background: var(--avoid); }
+        
+        /* Type Color */
+        .btn-type.active { background: #3498db; color: white; border-color: #3498db; }
+
         .item { background: white; padding: 15px; margin-bottom: 8px; border-radius: 10px; box-shadow: 0 2px 5px rgba(0,0,0,0.05); border-left: 10px solid #ccc; }
         .item.friendly { border-left-color: var(--safe); }
         .item.caution { border-left-color: var(--caution); }
@@ -25,38 +33,73 @@
 </head>
 <body>
     <div class="controls">
-        <input type="text" id="search" placeholder="Search across all categories...">
+        <input type="text" id="search" placeholder="Search foods...">
+        
+        <span class="filter-label">Safety Status</span>
         <div class="filter-group">
-            <button class="tab active" data-safety="all">ALL</button>
-            <button class="tab" data-safety="Friendly">SAFE</button>
-            <button class="tab" data-safety="Caution">CAUTION</button>
-            <button class="tab" data-safety="Avoid">AVOID</button>
+            <button class="btn active" data-s="Friendly">SAFE</button>
+            <button class="btn active" data-s="Caution">CAUTION</button>
+            <button class="btn active" data-s="Avoid">AVOID</button>
+        </div>
+
+        <span class="filter-label">Food Types</span>
+        <div class="filter-group" id="type-filters">
+            <!-- Type buttons injected here -->
         </div>
     </div>
     <div id="list"></div>
 
-    <!-- This is where we load your separate type files -->
     <script src="data_drinks.js"></script>
     <script src="data_breakfast.js"></script>
-    <script src="data_proteins.js"></script>
 
     <script>
-        // Combine all arrays from your separate files
-        // (Make sure each file defines a unique array name)
-        const allFoods = [...data_drinks, ...data_breakfast, ...data_proteins];
+        // Combine data
+        const allFoods = [...data_drinks, ...data_breakfast];
         
-        let safetyFilter = 'all';
+        // State tracking
+        let activeSafety = new Set(['Friendly', 'Caution', 'Avoid']);
+        let activeTypes = new Set();
+        
         const listDiv = document.getElementById('list');
         const searchInput = document.getElementById('search');
+        const typeContainer = document.getElementById('type-filters');
+
+        // 1. Create Type Buttons dynamically
+        const types = [...new Set(allFoods.map(f => f.c || "General"))];
+        types.forEach(type => {
+            activeTypes.add(type); // Default to all selected
+            const btn = document.createElement('button');
+            btn.className = 'btn btn-type active';
+            btn.textContent = type.toUpperCase();
+            btn.onclick = () => {
+                btn.classList.toggle('active');
+                activeTypes.has(type) ? activeTypes.delete(type) : activeTypes.add(type);
+                render();
+            };
+            typeContainer.appendChild(btn);
+        });
+
+        // 2. Safety Button Toggles
+        document.querySelectorAll('.btn[data-s]').forEach(btn => {
+            btn.onclick = () => {
+                const s = btn.dataset.s;
+                btn.classList.toggle('active');
+                activeSafety.has(s) ? activeSafety.delete(s) : activeSafety.add(s);
+                render();
+            };
+        });
 
         function render() {
             const search = searchInput.value.toLowerCase();
             listDiv.innerHTML = '';
+            
             const filtered = allFoods.filter(f => {
-                const mSearch = f.n.toLowerCase().includes(search);
-                const mSafety = safetyFilter === 'all' || f.s === safetyFilter;
-                return mSearch && mSafety;
+                const mSearch = f.n.toLowerCase().includes(search) || f.d.toLowerCase().includes(search);
+                const mSafety = activeSafety.has(f.s);
+                const mType = activeTypes.has(f.c || "General");
+                return mSearch && mSafety && mType;
             });
+
             filtered.forEach(f => {
                 listDiv.innerHTML += `
                     <div class="item ${f.s.toLowerCase()}">
@@ -65,15 +108,6 @@
                     </div>`;
             });
         }
-
-        document.querySelectorAll('.tab').forEach(tab => {
-            tab.onclick = () => {
-                document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-                tab.classList.add('active');
-                safetyFilter = tab.dataset.safety;
-                render();
-            };
-        });
 
         searchInput.oninput = render;
         render();
