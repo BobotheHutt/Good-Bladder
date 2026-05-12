@@ -8,12 +8,13 @@
         body.dark { --bg: #1a1a1a; --text: #f4f4f9; --card: #2c2c2c; --header: #1a1a1a; }
         body { font-family: -apple-system, sans-serif; padding: 15px; max-width: 800px; margin: auto; background: var(--bg); color: var(--text); transition: 0.2s; }
         
-        .mode-toggle { position: absolute; top: 15px; right: 15px; z-index: 200; }
-        #dark-btn { padding: 6px 12px; border-radius: 20px; border: 1px solid #ccc; background: var(--card); color: var(--text); font-size: 10px; font-weight: bold; cursor: pointer; }
-
         .controls { position: sticky; top: 0; background: var(--header); padding-bottom: 10px; z-index: 100; border-bottom: 1px solid #ddd; }
-        input { width: 100%; padding: 15px; margin-bottom: 10px; border: 1px solid #ccc; border-radius: 10px; font-size: 16px; box-sizing: border-box; background: var(--card); color: var(--text); }
         
+        /* Fixed Mobile Header Layout */
+        .header-row { display: flex; gap: 10px; align-items: center; margin-bottom: 10px; padding-top: 5px; }
+        input { flex-grow: 1; padding: 12px; border: 1px solid #ccc; border-radius: 10px; font-size: 16px; box-sizing: border-box; background: var(--card); color: var(--text); }
+        #dark-btn { padding: 10px 15px; border-radius: 10px; border: 1px solid #ccc; background: var(--card); color: var(--text); font-size: 10px; font-weight: bold; cursor: pointer; white-space: nowrap; }
+
         .filter-label { font-size: 10px; font-weight: bold; color: #888; text-transform: uppercase; margin: 5px 0; display: block; }
         .filter-group { display: flex; flex-wrap: wrap; gap: 5px; margin-bottom: 8px; }
         
@@ -36,12 +37,12 @@
     </style>
 </head>
 <body>
-    <div class="mode-toggle">
-        <button id="dark-btn" onclick="toggleMode()">DARK MODE</button>
-    </div>
-
     <div class="controls">
-        <input type="text" id="search" placeholder="Search across all categories...">
+        <div class="header-row">
+            <input type="text" id="search" placeholder="Search categories...">
+            <button id="dark-btn" onclick="toggleMode()">DARK MODE</button>
+        </div>
+        
         <span class="filter-label">Safety Status</span>
         <div class="filter-group" id="safety-filters">
             <button class="btn" data-s="Friendly">SAFE</button>
@@ -53,7 +54,6 @@
     </div>
     <div id="list"></div>
 
-    <!-- THE 12 DATA FILES -->
     <script src="data_breakfast.js"></script>
     <script src="data_lunch.js"></script>
     <script src="data_dinner.js"></script>
@@ -61,11 +61,11 @@
     <script src="data_proteins.js"></script>
     <script src="data_sides.js"></script>
     <script src="data_snacks.js"></script>
+    <script src="data_spices.js"></script>
     <script src="data_dining.js"></script>
     <script src="data_brands.js"></script>
     <script src="data_irritants.js"></script>
     <script src="data_vending.js"></script>
-    <script src="data_spices.js"></script>
 
     <script>
         function toggleMode() {
@@ -88,18 +88,17 @@
             typeof data_proteins !== 'undefined' ? data_proteins : [],
             typeof data_sides !== 'undefined' ? data_sides : [],
             typeof data_snacks !== 'undefined' ? data_snacks : [],
+            typeof data_spices !== 'undefined' ? data_spices : [],
             typeof data_dining !== 'undefined' ? data_dining : [],
             typeof data_brands !== 'undefined' ? data_brands : [],
             typeof data_irritants !== 'undefined' ? data_irritants : [],
-            typeof data_vending !== 'undefined' ? data_vending : [],
-            typeof data_spices !== 'undefined' ? data_spices : []
+            typeof data_vending !== 'undefined' ? data_vending : []
         ];
         
         const allFoods = [].concat(...dataFiles);
         const listDiv = document.getElementById('list');
         const searchInput = document.getElementById('search');
 
-        // Defaults: Safe on, Breakfast on (if no memory)
         let activeSafety = new Set(JSON.parse(localStorage.getItem('bSafety')) || ['Friendly']);
         let activeType = localStorage.getItem('bType') || 'Breakfast';
 
