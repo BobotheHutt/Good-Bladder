@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Bladder-Safe Guide</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        body { font-family: sans-serif; padding: 20px; max-width: 600px; margin: auto; background: #f4f4f9; }
+        input { width: 100%; padding: 12px; margin-bottom: 20px; border: 1px solid #ccc; border-radius: 8px; font-size: 16px; }
+        .item { background: white; padding: 15px; margin-bottom: 10px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); border-left: 8px solid #ccc; }
+        .item.friendly { border-left-color: #2ecc71; }
+        .item.caution { border-left-color: #f1c40f; }
+        .item.avoid { border-left-color: #e74c3c; }
+        .status { font-weight: bold; font-size: 0.8em; text-transform: uppercase; margin-bottom: 5px; }
+        .name { font-weight: bold; font-size: 1.1em; display: block; }
+        .details { color: #666; font-size: 0.9em; margin-top: 5px; }
+    </style>
+</head>
+<body>
+    <h2>Bladder-Safe Food Guide</h2>
+    <input type="text" id="search" placeholder="Search for a food (e.g. Craisins)...">
+    <div id="list"></div>
+
+    <script>
+        const foods = [
+            ["Water (Buffered RO or Spring)", "Bladder Friendly", "Low acid, neutral pH. Essential for healing."],
+            ["Oatmeal (Plain)", "Bladder Friendly", "Bland, non-acidic. Best breakfast choice right now."],
+            ["Coffee", "Avoid", "High acid and caffeine. Major trigger for 'lemon on a cut' feeling."],
+            ["Craisins", "Avoid", "Extremely high benzoic acid. Huge trigger for mid-stream burn."],
+            ["Blueberries", "Caution", "Safest berry, but can be acidic in large amounts during a flare."],
+            ["NAC Supplement", "Bladder Friendly", "Antioxidant used to help with bladder/prostate inflammation."],
+            ["Baking Soda Water", "Bladder Friendly", "Neutralizes acidic RO water to stop the stinging."]
+            // ... (You can paste the rest of the 200+ items here)
+        ];
+
+        const listDiv = document.getElementById('list');
+        const searchInput = document.getElementById('search');
+
+        function render(filter = '') {
+            listDiv.innerHTML = '';
+            foods.filter(f => f[0].toLowerCase().includes(filter.toLowerCase())).forEach(f => {
+                const type = f[1].toLowerCase().includes('friendly') ? 'friendly' : f[1].toLowerCase().includes('caution') ? 'caution' : 'avoid';
+                listDiv.innerHTML += `<div class="item ${type}"><div class="status">${f[1]}</div><span class="name">${f[0]}</span><div class="details">${f[2]}</div></div>`;
+            });
+        }
+
+        searchInput.addEventListener('input', (e) => render(e.target.value));
+        render();
+    </script>
+</body>
+</html>
