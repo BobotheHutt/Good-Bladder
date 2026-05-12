@@ -44,6 +44,4 @@ const data_dining = [
 
     // DINING HACKS
     {n:"The 'White Sauce' Rule", s:"Friendly", c:"Dining", d:"In any restaurant, white/cream/butter/oil is safe. Red/Brown is risky."},
-    {n:"Prelief (Portable)", s:"Friendly", c:"Dining", d:"Keep 2 pills in your pocket to take if you can't avoid some acid."},
-    {n:"The 'Pinch of Baking Soda'", s:"Friendly", c:"Dining", d:"Ask for water with NO lemon and add your pinch if it's not spring water."}
 ];
