@@ -1,116 +1,81 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Bladder-Safe Guide</title>
+    <title>Bladder Guide Pro</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <style>
-        body { font-family: sans-serif; padding: 20px; max-width: 600px; margin: auto; background: #f4f4f9; }
-        input { width: 100%; padding: 12px; margin-bottom: 20px; border: 1px solid #ccc; border-radius: 8px; font-size: 16px; }
-        .item { background: white; padding: 15px; margin-bottom: 10px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); border-left: 8px solid #ccc; }
-        .item.friendly { border-left-color: #2ecc71; }
-        .item.caution { border-left-color: #f1c40f; }
-        .item.avoid { border-left-color: #e74c3c; }
-        .status { font-weight: bold; font-size: 0.8em; text-transform: uppercase; margin-bottom: 5px; }
-        .name { font-weight: bold; font-size: 1.1em; display: block; }
-        .details { color: #666; font-size: 0.9em; margin-top: 5px; }
+        :root { --safe: #2ecc71; --caution: #f1c40f; --avoid: #e74c3c; --bg: #f4f4f9; }
+        body { font-family: -apple-system, sans-serif; padding: 15px; max-width: 800px; margin: auto; background: var(--bg); }
+        .controls { position: sticky; top: 0; background: var(--bg); padding-bottom: 10px; z-index: 100; }
+        input { width: 100%; padding: 15px; margin-bottom: 10px; border: 1px solid #ccc; border-radius: 10px; font-size: 16px; box-sizing: border-box; }
+        .filter-group { display: flex; gap: 5px; margin-bottom: 10px; overflow-x: auto; white-space: nowrap; padding-bottom: 5px; }
+        .tab { padding: 8px 15px; border: none; border-radius: 20px; cursor: pointer; font-weight: bold; font-size: 12px; background: #ddd; }
+        .tab.active { color: white; }
+        .tab[data-safety="all"].active { background: #34495e; }
+        .tab[data-safety="Friendly"].active { background: var(--safe); }
+        .tab[data-safety="Caution"].active { background: var(--caution); }
+        .tab[data-safety="Avoid"].active { background: var(--avoid); }
+        .item { background: white; padding: 15px; margin-bottom: 8px; border-radius: 10px; box-shadow: 0 2px 5px rgba(0,0,0,0.05); border-left: 10px solid #ccc; }
+        .item.friendly { border-left-color: var(--safe); }
+        .item.caution { border-left-color: var(--caution); }
+        .item.avoid { border-left-color: var(--avoid); }
+        .name { font-weight: bold; font-size: 1.1em; }
+        .details { color: #666; font-size: 0.85em; margin-top: 4px; }
     </style>
 </head>
 <body>
-    <h2>Bladder-Safe Food Guide</h2>
-    <input type="text" id="search" placeholder="Search for a food (e.g. Craisins)...">
+    <div class="controls">
+        <input type="text" id="search" placeholder="Search across all categories...">
+        <div class="filter-group">
+            <button class="tab active" data-safety="all">ALL</button>
+            <button class="tab" data-safety="Friendly">SAFE</button>
+            <button class="tab" data-safety="Caution">CAUTION</button>
+            <button class="tab" data-safety="Avoid">AVOID</button>
+        </div>
+    </div>
     <div id="list"></div>
 
-    <script>
-                const foods = [
-            {n:"Water (Buffered RO/Spring)", s:"Friendly", d:"Low acid, neutral pH. Essential for healing."},
-            {n:"Oatmeal (Plain)", s:"Friendly", d:"Bland, non-acidic. Best breakfast choice right now."},
-            {n:"Pears (Peeled)", s:"Friendly", d:"One of the least acidic fruits available."},
-            {n:"Bananas", s:"Friendly", d:"Low acid and soothing."},
-            {n:"Honey", s:"Friendly", d:"Good natural sweetener, less inflammatory than sugar."},
-            {n:"Blueberries", s:"Caution", d:"Safest berry, but can be acidic in large amounts during flare."},
-            {n:"Greek Yogurt (Vanilla)", s:"Caution", d:"Higher acid than regular; vanilla extract may have alcohol."},
-            {n:"Brown Sugar", s:"Caution", d:"Fine in moderation, but high sugar feeds inflammation."},
-            {n:"Coffee", s:"Avoid", d:"High acid/caffeine. Major trigger for 'lemon on a cut' feeling."},
-            {n:"Craisins", s:"Avoid", d:"Extremely high benzoic acid. Huge trigger for mid-stream burn."},
-            {n:"Twizzlers / Red Dye 40", s:"Avoid", d:"Artificial dyes and high sugar are chemical irritants."},
-            {n:"Mott's Fruit Snacks", s:"Avoid", d:"Citric acid and dyes trigger rapid-fill '200ml' emergencies."},
-            {n:"Vanilla Extract", s:"Avoid", d:"Often contains alcohol which irritates the bladder neck."},
-            {n:"Cranberry Juice", s:"Avoid", d:"Very high acidity; usually a major IC trigger."},
-            {n:"Soda / Carbonated Water", s:"Avoid", d:"Carbonation and acids irritate the bladder lining."},
-            {n:"Alcohol", s:"Avoid", d:"Systemic irritant and dehydrating."},
-            {n:"Orange / Lemon / Lime", s:"Avoid", d:"Pure citric acid. High risk for intense stinging."},
-            {n:"Spicy Foods (Chili/Hot Sauce)", s:"Avoid", d:"Capsaicin excreted in urine burns the bladder."},
-            {n:"Soy Sauce / MSG", s:"Avoid", d:"High sodium and additives can cause nerve sensitivity."},
-            {n:"Pickles / Vinegar", s:"Avoid", d:"Extremely acidic and fermented; major flare trigger."},
-            {n:"Chicken (Plain)", s:"Friendly", d:"Safe, low-inflammatory protein."},
-            {n:"Eggs", s:"Friendly", d:"Generally very safe and non-irritating."},
-            {n:"White Rice", s:"Friendly", d:"Bland and low-fiber; easy on the gut and bladder."},
-            {n:"Potatoes (White/Sweet)", s:"Friendly", d:"Low acid, filling, and safe."},
-            {n:"Broccoli", s:"Friendly", d:"Safe vegetable option."},
-            {n:"Carrots", s:"Friendly", d:"Non-acidic and safe."},
-            {n:"Almonds", s:"Friendly", d:"Good snack, low acid."},
-            {n:"Milk (Cow/Almond/Oat)", s:"Friendly", d:"Usually alkaline/neutral; helps buffer acid."},
-            {n:"Cottage Cheese", s:"Friendly", d:"Low acid dairy option."},
-            {n:"Cucumber", s:"Friendly", d:"High water content and neutral pH."},
-            {n:"Celery", s:"Friendly", d:"Low acid and hydrating."},
-            {n:"Zucchini", s:"Friendly", d:"Safe and non-irritating."},
-            {n:"Apples (Gala/Fuji)", s:"Caution", d:"Sweeter apples are safer than tart ones like Granny Smith."},
-            {n:"Strawberries", s:"Avoid", d:"High acid and common flare trigger."},
-            {n:"Pineapple", s:"Avoid", d:"Highly acidic; bromelain can sting raw tissue."},
-            {n:"Tomatoes / Pasta Sauce", s:"Avoid", d:"Highly acidic; one of the most common IC triggers."},
-            {n:"Raw Onions", s:"Avoid", d:"Very irritating to the bladder and prostate junction."},
-            {n:"Aged Cheeses", s:"Avoid", d:"High in tyramine which can trigger bladder nerve pain."},
-            {n:"Processed Meats (Deli/Salami)", s:"Avoid", d:"Nitrates and preservatives are major irritants."},
-            {n:"Artificial Sweeteners", s:"Avoid", d:"Aspartame and Saccharin are known bladder neurotoxins."},
-            {n:"Salmon (Fresh)", s:"Friendly", d:"Anti-inflammatory omega-3s are great for healing tissue."},
-            {n:"Quinoa", s:"Friendly", d:"Safe grain alternative to rice or wheat."},
-            {n:"Cashews", s:"Friendly", d:"Non-irritating nut choice."},
-            {n:"Watermelon", s:"Friendly", d:"High water content helps dilute urine; very low acid."},
-            {n:"Honeydew Melon", s:"Friendly", d:"Neutral pH and very safe."},
-            {n:"Asparagus", s:"Caution", d:"Can make urine smell; may cause minor irritation."},
-            {n:"Avocado", s:"Caution", d:"Generally safe but contains tyramine which affects some nerves."},
-            {n:"Mushrooms", s:"Friendly", d:"Safe and non-acidic."},
-            {n:"Garlic (Cooked)", s:"Caution", d:"Better tolerated than raw; keep amounts small."},
-            {n:"Pretzels", s:"Friendly", d:"Safe salty snack. Avoid 'honey mustard' versions."},
-            {n:"Mozzarella Cheese", s:"Friendly", d:"Lower acid and lower tyramine than aged cheeses."},
-            {n:"Ricotta Cheese", s:"Friendly", d:"Very safe dairy option."},
-            {n:"Peppermint Tea", s:"Friendly", d:"Natural antispasmodic; helps relax bladder muscle."},
-            {n:"Chamomile Tea", s:"Friendly", d:"Soothing and anti-inflammatory."},
-            {n:"Marshmallows", s:"Friendly", d:"One of the few safe candies (check for dye/acid)."},
-            {n:"Walnuts", s:"Friendly", d:"Safe and healthy fats."},
-            {n:"Turkey (Fresh)", s:"Friendly", d:"Low-acid protein. Avoid deli-sliced with nitrates."},
-            {n:"Squash", s:"Friendly", d:"Very safe and soothing vegetable."},
-            {n:"Shrimp (Fresh)", s:"Friendly", d:"Safe if not seasoned with lemon/cocktail sauce."},
-            {n:"Chocolate", s:"Avoid", d:"Contains caffeine and theobromine; irritates nerves."},
-            {n:"Ketchup", s:"Avoid", d:"Concentrated tomatoes + vinegar = massive trigger."},
-            {n:"Mustard", s:"Avoid", d:"Vinegar and mustard seed are high-level irritants."},
-            {n:"Mayonnaise", s:"Avoid", d:"Contains vinegar and lemon juice."},
-            {n:"Salsa", s:"Avoid", d:"Combines tomatoes, onions, and peppers. Extreme trigger."},
-            {n:"Soy Sauce", s:"Avoid", d:"High salt and soy; triggers nerve pain for many."},
-            {n:"Pepperoni / Sausage", s:"Avoid", d:"Nitrates and spices burn the bladder neck."},
-            {n:"Cider", s:"Avoid", d:"Extremely acidic fermented drink."},
-            {n:"Energy Drinks", s:"Avoid", d:"High caffeine, acid, and chemicals. Avoid during recovery."},
-            {n:"NAC Supplement", s:"Friendly", d:"1000mg. Antioxidant for bladder/prostate inflammation."},
-            {n:"Baking Soda Water", s:"Friendly", d:"Helps neutralize RO water to stop stinging."}
-        ];
+    <!-- This is where we load your separate type files -->
+    <script src="data_drinks.js"></script>
+    <script src="data_breakfast.js"></script>
+    <script src="data_proteins.js"></script>
 
+    <script>
+        // Combine all arrays from your separate files
+        // (Make sure each file defines a unique array name)
+        const allFoods = [...data_drinks, ...data_breakfast, ...data_proteins];
+        
+        let safetyFilter = 'all';
         const listDiv = document.getElementById('list');
         const searchInput = document.getElementById('search');
 
-        function render(filter = '') {
+        function render() {
+            const search = searchInput.value.toLowerCase();
             listDiv.innerHTML = '';
-            foods.filter(f => f.n.toLowerCase().includes(filter.toLowerCase())).forEach(f => {
-                const typeClass = f.s.toLowerCase() === 'friendly' ? 'friendly' : f.s.toLowerCase() === 'caution' ? 'caution' : 'avoid';
+            const filtered = allFoods.filter(f => {
+                const mSearch = f.n.toLowerCase().includes(search);
+                const mSafety = safetyFilter === 'all' || f.s === safetyFilter;
+                return mSearch && mSafety;
+            });
+            filtered.forEach(f => {
                 listDiv.innerHTML += `
-                    <div class="item ${typeClass}">
-                        <div class="status">${f.s}</div>
+                    <div class="item ${f.s.toLowerCase()}">
                         <span class="name">${f.n}</span>
                         <div class="details">${f.d}</div>
                     </div>`;
             });
         }
 
-        searchInput.addEventListener('input', (e) => render(e.target.value));
+        document.querySelectorAll('.tab').forEach(tab => {
+            tab.onclick = () => {
+                document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+                tab.classList.add('active');
+                safetyFilter = tab.dataset.safety;
+                render();
+            };
+        });
+
+        searchInput.oninput = render;
         render();
     </script>
 </body>
