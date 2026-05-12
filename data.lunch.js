@@ -1,4 +1,4 @@
-const data_meals = [
+const data_lunch = [
     // --- LUNCH (PORTABLE & QUICK) ---
     {n:"Turkey & Mozzarella Wrap", s:"Friendly", c:"Lunch", d:"Use Applegate turkey, mozzarella, and a flour tortilla. No mustard or mayo."},
     {n:"Chicken Salad (Oil/Herb)", s:"Friendly", c:"Lunch", d:"Safe if made with olive oil and fresh herbs instead of mayonnaise/lemon juice."},
