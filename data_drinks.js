@@ -1,54 +1,57 @@
 const data_drinks = [
     // WATER & HYDRATION
-    {n:"Baking Soda Water", s:"Friendly", c:"Drink", d:"1/8 tsp in 32oz RO water. Essential to neutralize acidic filtration."},
-    {n:"Evian / Fiji Water", s:"Friendly", c:"Drink", d:"Naturally alkaline bottled waters; very easy on the bladder lining."},
-    {n:"Coconut Water (Natural)", s:"Friendly", c:"Drink", d:"Pure hydration with electrolytes and no acidic additives. Very soothing."},
-    {n:"Spring Water", s:"Friendly", c:"Drink", d:"Contains natural minerals that buffer acidity better than RO water."},
-    {n:"San Pellegrino", s:"Caution", c:"Drink", d:"Low-acid sparkling water, but carbonation can still trigger spasms for some."},
-    {n:"Distilled Water", s:"Caution", c:"Drink", d:"Can be slightly acidic due to lack of minerals; use a pinch of baking soda."},
-    
+    {n:"Baking Soda Water", s:"Friendly", c:"Drinks", d:"1/8 tsp in 32oz RO water. Essential to neutralize acidic filtration."},
+    {n:"Evian / Fiji Water", s:"Friendly", c:"Drinks", d:"Naturally alkaline (pH 7.2+); very easy on the bladder lining."},
+    {n:"Coconut Water (Pure)", s:"Friendly", c:"Drinks", d:"Excellent hydration/electrolytes. Ensure no added 'Citric Acid'."},
+    {n:"Spring Water", s:"Friendly", c:"Drinks", d:"Better than plain RO as it contains natural mineral buffers."},
+    {n:"Voss / Essentia", s:"Friendly", c:"Drinks", d:"High pH bottled waters that help keep urine alkaline."},
+    {n:"San Pellegrino", s:"Caution", c:"Drinks", d:"Low-acid, but carbonation can trigger spasms if in a flare."},
+    {n:"Distilled Water", s:"Caution", c:"Drinks", d:"Stripped of minerals; can be slightly acidic. Use baking soda."},
+
     // TEAS (HOT & ICED)
-    {n:"Chamomile Tea", s:"Friendly", c:"Drink", d:"The 'Gold Standard' for bladder pain. Natural antispasmodic."},
-    {n:"Peppermint Tea", s:"Friendly", c:"Drink", d:"Helps relax smooth muscles in the bladder and gut."},
-    {n:"Marshmallow Root Tea", s:"Friendly", c:"Drink", d:"Nature's liquid bandage; creates a protective coating on the 'veiny' lining."},
-    {n:"Corn Silk Tea", s:"Friendly", c:"Drink", d:"Traditional remedy for urethral and bladder neck burning."},
-    {n:"Rooibos (Red Tea)", s:"Friendly", c:"Drink", d:"Naturally caffeine-free and very low in tannins/acid."},
-    {n:"White Tea (Weakly Brewed)", s:"Caution", c:"Drink", d:"Lower caffeine/acid than black tea, but still a potential trigger."},
-    {n:"Black / Green Tea", s:"Avoid", c:"Drink", d:"High caffeine and acid. Guaranteed to trigger urgency/burning."},
-    {n:"Iced Tea (Bottled)", s:"Avoid", c:"Drink", d:"Loaded with citric acid and preservatives. Avoid entirely."},
-    
+    {n:"Chamomile Tea", s:"Friendly", c:"Drinks", d:"The 'Gold Standard' for bladder pain. Natural antispasmodic."},
+    {n:"Peppermint Tea", s:"Friendly", c:"Drinks", d:"Helps relax smooth muscles in the bladder and gut."},
+    {n:"Marshmallow Root Tea", s:"Friendly", c:"Drinks", d:"Nature's liquid bandage; coats the lining to stop the stinging."},
+    {n:"Corn Silk Tea", s:"Friendly", c:"Drinks", d:"Traditional remedy for urethral and bladder neck burning."},
+    {n:"Rooibos (Red Tea)", s:"Friendly", c:"Drinks", d:"Naturally caffeine-free and very low in tannins/acid."},
+    {n:"Marshmallow Root & Corn Silk Blend", s:"Friendly", c:"Drinks", d:"Powerful combo for 'lemon on a cut' relief."},
+    {n:"Iced Tea (Homemade)", s:"Avoid", c:"Drinks", d:"Even homemade black tea is high in oxalates and acid."},
+    {n:"White Tea", s:"Caution", c:"Drinks", d:"Lower caffeine/acid than black tea, but still a potential trigger."},
+
     // COFFEE & SUBSTITUTES
-    {n:"Dandy Blend", s:"Friendly", c:"Drink", d:"Dandelion/chicory root substitute. Zero acid, tastes remarkably like coffee."},
-    {n:"Pero / Postum / Kaffree Roma", s:"Friendly", c:"Drink", d:"Grain-based coffee alternatives. Non-acidic and bladder-safe."},
-    {n:"Tyler's Acid-Free Coffee", s:"Caution", c:"Drink", d:"Chemically neutralized. Best 'real' coffee option, but use sparingly."},
-    {n:"Cold Brew Coffee", s:"Caution", c:"Drink", d:"67% less acid than hot brew, but still contains caffeine triggers."},
-    {n:"Regular / Decaf Coffee", s:"Avoid", c:"Drink", d:"High acid content burns the 'cuts' in the bladder lining."},
-    
+    {n:"Dandy Blend", s:"Friendly", c:"Drinks", d:"Dandelion/chicory root. Zero acid, tastes like real coffee."},
+    {n:"Pero / Kaffree Roma", s:"Friendly", c:"Drinks", d:"Grain-based coffee alternatives. Non-acidic and very safe."},
+    {n:"Tyler's Acid-Free Coffee", s:"Caution", c:"Drinks", d:"Chemically neutralized. Safest 'real' coffee option."},
+    {n:"Cold Brew Coffee", s:"Caution", c:"Drinks", d:"Less acid than hot brew, but still contains caffeine triggers."},
+    {n:"Regular / Decaf Coffee", s:"Avoid", c:"Drinks", d:"High acid content burns 'raw' bladder tissue immediately."},
+
     // JUICES
-    {n:"Pear Juice", s:"Friendly", c:"Drink", d:"The safest juice option. Low acid and very soothing."},
-    {n:"Blueberry Juice (Pure)", s:"Friendly", c:"Drink", d:"Safe as long as it's not a 'blend' with apple or grape juice."},
-    {n:"Apple Juice (Low Acid/Organic)", s:"Caution", c:"Drink", d:"Test small amounts; some brands are still quite sharp."},
-    {n:"Orange / Grapefruit Juice", s:"Avoid", c:"Drink", d:"Pure citric acid. Avoid while healing from Botox."},
-    {n:"Cranberry Juice", s:"Avoid", c:"Drink", d:"Extremely acidic. High risk for that mid-stream 'lemon on a cut' feeling."},
-    {n:"Tomato Juice / V8", s:"Avoid", c:"Drink", d:"Highly acidic and high sodium. Major flare trigger."},
-    
-    // MILK & DAIRY DRINKS
-    {n:"Cow's Milk (Whole/2%)", s:"Friendly", c:"Drink", d:"Naturally alkaline; excellent for buffering stomach and bladder acid."},
-    {n:"Almond / Oat / Rice Milk", s:"Friendly", c:"Drink", d:"Safe non-dairy alternatives. Avoid Soy Milk (can be a trigger)."},
-    {n:"Vanilla Milkshake", s:"Friendly", c:"Drink", d:"Safe treat. Avoid chocolate or fruit-acid flavors."},
-    {n:"Hot White Chocolate", s:"Friendly", c:"Drink", d:"Safe warm drink. No caffeine/theobromine like dark chocolate."},
-    
+    {n:"Pear Juice", s:"Friendly", c:"Drinks", d:"The safest juice option. Low acid and very soothing."},
+    {n:"Blueberry Juice (Pure)", s:"Friendly", c:"Drinks", d:"Ensure it's not a 'blend' with apple or grape juice."},
+    {n:"Apple Juice (Low Acid)", s:"Caution", c:"Drinks", d:"Test small amounts; organic/cloudy is usually better."},
+    {n:"Orange / Grapefruit Juice", s:"Avoid", c:"Drinks", d:"Pure citric acid. Avoid while Botox is settling."},
+    {n:"Cranberry Juice", s:"Avoid", c:"Drinks", d:"Extremely acidic. High risk for mid-stream burning."},
+    {n:"Tomato Juice / V8", s:"Avoid", c:"Drinks", d:"Highly acidic and high sodium. Major flare trigger."},
+
+    // DAIRY & ALTERNATIVES
+    {n:"Cow's Milk (Whole/2%)", s:"Friendly", c:"Drinks", d:"Naturally alkaline; helps buffer stomach and bladder acid."},
+    {n:"Almond / Oat / Rice Milk", s:"Friendly", c:"Drinks", d:"Safe non-dairy alternatives. Avoid Soy Milk."},
+    {n:"Hot White Chocolate", s:"Friendly", c:"Drinks", d:"Safe warm drink. No caffeine like dark cocoa."},
+    {n:"Vanilla Milkshake", s:"Friendly", c:"Drinks", d:"Safe treat. Avoid chocolate or citrus flavors."},
+
     // SODA & MISC
-    {n:"Root Beer (Caffeine-Free)", s:"Caution", c:"Drink", d:"The 'safest' soda, but carbonation is still a risk. Let it go flat first."},
-    {n:"Ginger Ale", s:"Caution", c:"Drink", d:"Ginger is soothing, but the citric acid/bubbles can trigger flares."},
-    {n:"Colas / Diet Sodas", s:"Avoid", c:"Drink", d:"Caffeine, carbonation, and artificial sweeteners are a triple-threat."},
-    {n:"Energy Drinks (Monster/Red Bull)", s:"Avoid", c:"Drink", d:"Massive levels of acid and caffeine. Absolute worst for Botox recovery."},
-    {n:"Gatorade / Powerade", s:"Avoid", c:"Drink", d:"Citric acid and artificial dyes (Red 40) are major irritants."},
-    
-    // ALCOHOL (FOR LATER)
-    {n:"Sake (Unfiltered/Nigori)", s:"Caution", c:"Drink", d:"Generally the least acidic alcohol option. Dilute with water/ice."},
-    {n:"Light Lager / Pilsner", s:"Caution", c:"Drink", d:"Lower acid than dark beers, but alcohol is a systemic irritant."},
-    {n:"Whiskey / Gin / Vodka", s:"Caution", c:"Drink", d:"Clear liquors are safer than brown, but high alcohol content dehydrates."},
-    {n:"White Wine (Dry)", s:"Avoid", c:"Drink", d:"Extremely high acid. Almost guaranteed to sting the bladder."},
-    {n:"Red Wine / Champagne", s:"Avoid", c:"Drink", d:"Sulfites, tannins, and bubbles make this a high-level trigger."}
+    {n:"Root Beer (Caffeine-Free)", s:"Caution", c:"Drinks", d:"The 'safest' soda, but bubbles can still be a risk."},
+    {n:"Ginger Ale", s:"Caution", c:"Drinks", d:"Ginger is soothing, but citric acid/bubbles can flare."},
+    {n:"Colas (Coke/Pepsi)", s:"Avoid", c:"Drinks", d:"Phosphoric acid and caffeine. Guaranteed trigger."},
+    {n:"Diet Sodas", s:"Avoid", c:"Drinks", d:"Artificial sweeteners are known bladder neurotoxins."},
+    {n:"Energy Drinks (Monster/Red Bull)", s:"Avoid", c:"Drinks", d:"Massive acid and caffeine. Absolute worst for recovery."},
+    {n:"Gatorade / Powerade", s:"Avoid", c:"Drinks", d:"Citric acid and artificial dyes (Red 40) are irritants."},
+    {n:"Lemonade", s:"Avoid", c:"Drinks", d:"High citric acid. Massive 'lemon on a cut' risk."},
+
+    // ALCOHOL (LIFESTYLE)
+    {n:"Sake (Unfiltered)", s:"Caution", c:"Drinks", d:"Generally the least acidic alcohol option. Dilute with water."},
+    {n:"Light Lager", s:"Caution", c:"Drinks", d:"Lower acid than dark beers, but alcohol dehydrates."},
+    {n:"Clear Vodka / Gin", s:"Caution", c:"Drinks", d:"Safer than brown liquors, but still a systemic irritant."},
+    {n:"White Wine", s:"Avoid", c:"Drinks", d:"Extremely high acid. Causes immediate burning for most."},
+    {n:"Red Wine / Champagne", s:"Avoid", c:"Drinks", d:"Sulfites and tannins make these high-level triggers."}
 ];
