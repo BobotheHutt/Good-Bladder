@@ -10,27 +10,33 @@
         
         .controls { position: sticky; top: 0; background: var(--header); padding-bottom: 10px; z-index: 100; border-bottom: 1px solid #ddd; }
         
-        /* Fixed Mobile Header Layout */
+        /* Search Bar with X button */
+        .search-container { position: relative; flex-grow: 1; display: flex; align-items: center; }
+        input { width: 100%; padding: 12px 40px 12px 12px; border: 1px solid #ccc; border-radius: 10px; font-size: 16px; box-sizing: border-box; background: var(--card); color: var(--text); }
+        #clear-btn { position: absolute; right: 10px; background: none; border: none; color: #888; font-size: 20px; cursor: pointer; display: none; }
+
         .header-row { display: flex; gap: 10px; align-items: center; margin-bottom: 10px; padding-top: 5px; }
-        input { flex-grow: 1; padding: 12px; border: 1px solid #ccc; border-radius: 10px; font-size: 16px; box-sizing: border-box; background: var(--card); color: var(--text); }
         #dark-btn { padding: 10px 15px; border-radius: 10px; border: 1px solid #ccc; background: var(--card); color: var(--text); font-size: 10px; font-weight: bold; cursor: pointer; white-space: nowrap; }
 
         .filter-label { font-size: 10px; font-weight: bold; color: #888; text-transform: uppercase; margin: 5px 0; display: block; }
         .filter-group { display: flex; flex-wrap: wrap; gap: 5px; margin-bottom: 8px; }
         
+        /* Indicators */
+        #search-indicator { display: none; color: #3498db; font-size: 10px; font-weight: bold; margin-bottom: 8px; animation: pulse 1.5s infinite; }
+        @keyframes pulse { 0% { opacity: 0.6; } 50% { opacity: 1; } 100% { opacity: 0.6; } }
+
         .btn { padding: 8px 12px; border: 1px solid #ccc; border-radius: 20px; cursor: pointer; font-weight: bold; font-size: 11px; background: var(--card); color: var(--text); }
         .btn.active { color: white; border-color: transparent; }
-        
         .btn[data-s="Friendly"].active { background: var(--safe); color: #000; }
         .btn[data-s="Caution"].active { background: var(--caution); color: #000; }
         .btn[data-s="Avoid"].active { background: var(--avoid); color: #fff; }
         .btn-type.active { background: #3498db; color: white; border-color: #3498db; }
+        .btn-type.disabled { opacity: 0.3; pointer-events: none; }
 
         .item { background: var(--card); padding: 15px; margin-bottom: 8px; border-radius: 10px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); border-left: 10px solid #ccc; }
         .item.friendly { border-left-color: var(--safe); }
         .item.caution { border-left-color: var(--caution); }
         .item.avoid { border-left-color: var(--avoid); }
-        
         .name { font-weight: bold; font-size: 1.1em; }
         .tag { font-size: 0.7em; background: #eee; padding: 2px 6px; border-radius: 4px; margin-right: 5px; color: #000; font-weight: bold; vertical-align: middle;}
         .details { color: var(--text); opacity: 0.8; font-size: 0.85em; margin-top: 4px; }
@@ -39,7 +45,10 @@
 <body>
     <div class="controls">
         <div class="header-row">
-            <input type="text" id="search" placeholder="Search categories...">
+            <div class="search-container">
+                <input type="text" id="search" placeholder="Search across all categories...">
+                <button id="clear-btn" onclick="clearSearch()">&times;</button>
+            </div>
             <button id="dark-btn" onclick="toggleMode()">DARK MODE</button>
         </div>
         
@@ -49,11 +58,14 @@
             <button class="btn" data-s="Caution">CAUTION</button>
             <button class="btn" data-s="Avoid">AVOID</button>
         </div>
-        <span class="filter-label">Food Type (Select One)</span>
+
+        <div id="search-indicator">🔍 SEARCHING ALL CATEGORIES</div>
+        <span class="filter-label" id="type-label">Food Type (Select One)</span>
         <div class="filter-group" id="type-filters"></div>
     </div>
     <div id="list"></div>
 
+    <!-- DATA FILES -->
     <script src="data_breakfast.js"></script>
     <script src="data_lunch.js"></script>
     <script src="data_dinner.js"></script>
@@ -79,6 +91,11 @@
             document.getElementById('dark-btn').innerText = 'LIGHT MODE';
         }
 
+        function clearSearch() {
+            searchInput.value = '';
+            render();
+        }
+
         const dataFiles = [
             typeof data_breakfast !== 'undefined' ? data_breakfast : [],
             typeof data_lunch !== 'undefined' ? data_lunch : [],
@@ -96,6 +113,9 @@
         const allFoods = [].concat(...dataFiles);
         const listDiv = document.getElementById('list');
         const searchInput = document.getElementById('search');
+        const clearBtn = document.getElementById('clear-btn');
+        const searchIndicator = document.getElementById('search-indicator');
+        const typeLabel = document.getElementById('type-label');
 
         let activeSafety = new Set(JSON.parse(localStorage.getItem('bSafety')) || ['Friendly']);
         let activeType = localStorage.getItem('bType') || 'Breakfast';
@@ -134,23 +154,28 @@
             const search = searchInput.value.toLowerCase();
             listDiv.innerHTML = '';
             
+            // Toggle Visibility of Indicators
+            if (search.length > 0) {
+                clearBtn.style.display = 'block';
+                searchIndicator.style.display = 'block';
+                typeLabel.style.opacity = '0.3';
+                document.querySelectorAll('.btn-type').forEach(b => b.classList.add('disabled'));
+            } else {
+                clearBtn.style.display = 'none';
+                searchIndicator.style.display = 'none';
+                typeLabel.style.opacity = '1';
+                document.querySelectorAll('.btn-type').forEach(b => b.classList.remove('disabled'));
+            }
+
             const filtered = allFoods.filter(f => {
                 const mSearch = f.n.toLowerCase().includes(search) || (f.d && f.d.toLowerCase().includes(search));
                 const mSafety = activeSafety.has(f.s);
-                
-                // NEW LOGIC: If searching, ignore Category. If not searching, use Category.
                 const mType = (search.length > 0) ? true : (f.c || "General") === activeType;
-                
                 return mSearch && mSafety && mType;
             });
 
             filtered.forEach(f => {
-                listDiv.innerHTML += `
-                    <div class="item ${f.s.toLowerCase()}">
-                        <span class="tag">${f.c}</span>
-                        <span class="name">${f.n}</span>
-                        <div class="details">${f.d || ''}</div>
-                    </div>`;
+                listDiv.innerHTML += `<div class="item ${f.s.toLowerCase()}"><span class="tag">${f.c}</span><span class="name">${f.n}</span><div class="details">${f.d || ''}</div></div>`;
             });
         }
         searchInput.oninput = render;
